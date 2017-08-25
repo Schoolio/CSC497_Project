@@ -35,21 +35,24 @@
 
 </head>
 <body>
-    <div class="Logo">
-        <img src="~/Content/Sample.png" height="270" width="1200" />
+    <div class="Logo" align="center">
+        <img src="~/Content/Sample.png" height="270" width="1200"/>
     </div>
-    <div id="MenuDiv">
+    <div id="Header">
         <ul>
             <li class="active">@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
+            <li class="active">@Html.ActionLink("Exercises", "Index", "Exercise", routeValues: null, htmlAttributes: new { id = "" })</li>
             <li class="active">@Html.ActionLink("About", "About", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
             <li class="active">@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
         </ul>
     </div>
-    <div class="container body-content">
+    <div>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </div>
+    <div id="Footer" style="height : 150px;background-color : #BF0D3E">
+        <footer align="center">
+            <p>Untouchable Consulting</p>
+            <p>Fall 2017 - Senior Project</p>
         </footer>
     </div>
 
