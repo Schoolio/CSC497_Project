@@ -6,11 +6,13 @@ using System.Web.Mvc;
 
 namespace CSC497_Project_JagQuiz.Controllers
 {
+    
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
-            ViewBag.Title = "JagQuiz Home";
+            ViewBag.Title = "JagMatch Home";
             return View();
         }
 

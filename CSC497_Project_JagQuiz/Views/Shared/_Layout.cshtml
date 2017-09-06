@@ -35,27 +35,27 @@
 
 </head>
 <body>
-    <div class="Logo" align="center">
-        <img src="~/Content/Sample.png" height="270" width="1200"/>
-    </div>
     <div id="Header">
-        <ul>
-            <li class="active">@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
-            <li class="active">@Html.ActionLink("Exercises", "Index", "Exercise", routeValues: null, htmlAttributes: new { id = "" })</li>
-            <li class="active">@Html.ActionLink("About", "About", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
-            <li class="active">@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
-        </ul>
+        <div id="Logo" align="center">
+            <img src="~/Content/Sample.png" height="270" width="1200" />
+        </div>
+        <div id="Header" class ="navbar" style="padding-bottom: 15px">
+            <ul>
+                <li class="active">@Html.ActionLink("Home", "Index", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
+                <li class="active">@Html.ActionLink("Exercises", "Index", "Exercise", routeValues: null, htmlAttributes: new { id = "" })</li>
+                <li class="active">@Html.ActionLink("About", "About", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
+                <li class="active">@Html.ActionLink("Contact", "Contact", "Home", routeValues: null, htmlAttributes: new { id = "" })</li>
+            </ul>
+        </div>
     </div>
     <div>
         @RenderBody()
     </div>
-    <div id="Footer" style="height : 150px;background-color : #BF0D3E; align-self:baseline">
-        <footer align="center">
-            <p>Untouchable Consulting</p>
-            <p>Fall 2017 - Senior Project</p>
-        </footer>
-    </div>
-
+    <footer class="footer" style="background-color: #BF0D3E; height:60px;position: absolute;bottom: 0;width: 100%;height: 60px;line-height: 60px; ">
+        <div class="container text-center" style="width: auto;max-width: 680px;padding: 0 15px;">
+            <span class="text-center">Untouchable Consulting Fall of 2017</span>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

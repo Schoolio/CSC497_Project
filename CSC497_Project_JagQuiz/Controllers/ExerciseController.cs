@@ -6,10 +6,22 @@ using System.Web.Mvc;
 
 namespace CSC497_Project_JagQuiz.Controllers
 {
+    [Authorize]
     public class ExerciseController : Controller
-    {
+    {   
+        
         // GET: Exercise
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult CreateMatch()
+        {
+            return View();
+        }
+
+        public ActionResult Match()
         {
             return View();
         }
