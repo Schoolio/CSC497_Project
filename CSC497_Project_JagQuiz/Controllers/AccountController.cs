@@ -423,6 +423,13 @@ namespace CSC497_Project_JagQuiz.Controllers
             base.Dispose(disposing);
         }
 
+        //
+        // GET: /Account/AccountIndex
+        [AllowAnonymous]
+        public ActionResult AccountIndex()
+        {
+            return View();
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

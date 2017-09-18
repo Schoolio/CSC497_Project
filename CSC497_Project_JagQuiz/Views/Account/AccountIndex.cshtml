@@ -1,0 +1,41 @@
+﻿@model CSC497_Project_JagQuiz.Models.AccountIndexViewModel
+
+@{
+    ViewBag.Title = "IndexViewModel";
+}
+
+<h2>IndexViewModel</h2>
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Account Information</div>
+                    <div class="panel-body">
+                        <div>
+                            @Html.LabelFor(m => m.firstName, "First Name: ")
+                            @Html.DisplayFor(m => m.firstName)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.lastName, "Last Name: ")
+                            @Html.DisplayFor(m => m.lastName)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.course, "Course: ")
+                            @Html.DisplayFor(m => m.course)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">Options</div>
+                    <div class="panel-body">
+                        <input class="btn btn-default" type="button" value="Change Course" />
+                        <input class="btn btn-default" type="submit" value="Change Password" />
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>

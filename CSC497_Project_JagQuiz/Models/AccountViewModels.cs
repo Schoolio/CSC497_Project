@@ -10,6 +10,13 @@ namespace CSC497_Project_JagQuiz.Models
         public string Email { get; set; }
     }
 
+    public class AccountIndexViewModel
+    {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string course { get; set; }
+    }
+
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
@@ -68,6 +75,14 @@ namespace CSC497_Project_JagQuiz.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string firstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string lastName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
