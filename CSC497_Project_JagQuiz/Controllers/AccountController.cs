@@ -149,8 +149,8 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            ApplicationDbContext db = ApplicationDbContext.Create();
-            string response = db.RegisterQuery(model);
+            ApplicationDbContext db = new ApplicationDbContext();
+            int response = db.RegisterQuery(model);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

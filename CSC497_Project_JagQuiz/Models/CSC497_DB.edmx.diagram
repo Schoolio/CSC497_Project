@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c1f045f5eece45d391de1c11a6dcd04f" Name="Diagram1">
+        <EntityTypeShape EntityType="Project_CSC497Model.tblAccount" Width="1.5" PointX="2.875" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project_CSC497Model.tblAccounts_Courses" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project_CSC497Model.tblAccounts_Terms" Width="1.5" PointX="8.125" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project_CSC497Model.tblCourse" Width="1.5" PointX="5.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Project_CSC497Model.tblTerm" Width="1.5" PointX="8.125" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="Project_CSC497Model.FK__tblAccoun__Accou__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="Project_CSC497Model.FK__tblAccoun__Accou__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="Project_CSC497Model.FK__tblAccoun__Cours__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="Project_CSC497Model.FK__tblAccoun__TermF__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="Project_CSC497Model.FK__tblTerm__CourseI__145C0A3F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

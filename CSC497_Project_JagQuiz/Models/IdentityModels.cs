@@ -10,6 +10,7 @@ namespace CSC497_Project_JagQuiz.Models
     public class ApplicationUser : IdentityUser
     {
         public string JagNumber { get; set; }
+        public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int AccountType { get; set; }
@@ -29,22 +30,28 @@ namespace CSC497_Project_JagQuiz.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
 
-        public string RegisterQuery(RegisterViewModel MyParams){
+        public int RegisterQuery(RegisterViewModel MyParams){
             object[] SQLParams = new object[6];
             SQLParams[0] = MyParams.JagNumber;
             SQLParams[1] = MyParams.Email;
             SQLParams[2] = MyParams.Password;
-            SQLParams[3] = MyParams.firstName;
-            SQLParams[4] = MyParams.lastName;
+            SQLParams[3] = MyParams.FirstName;
+            SQLParams[4] = MyParams.LastName;
             SQLParams[5] = 1;
-            Database.ExecuteSqlCommand("uspRegisterUser", SQLParams);
-            return "temp";
+            object[] SQLParam = new object[6];
+            SQLParam[0] = "J00426100";
+            SQLParam[1] = "zps1101@jagmail.southalabama.edu";
+            SQLParam[2] = "j4c0bi4n&k4ns4r";
+            SQLParam[3] = "Zac";
+            SQLParam[4] = "Smith";
+            SQLParam[5] = 1;
+            int response = Database.ExecuteSqlCommand("EXEC uspRegisterUser  @pJagNumber='J00426100', @pEmail='temp', @pPasswordHash='temp', @pFirstName='temp', @pLastName='temp', @pAccountType=1", SQLParam);
+            return response;
         }
     }
 }
