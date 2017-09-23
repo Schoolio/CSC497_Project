@@ -171,37 +171,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CSC497_DB.Context.cs">
+    <Compile Include="Models\IdentityModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CSC497_DB.Context.tt</DependentUpon>
+      <DependentUpon>IdentityModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CSC497_DB.cs">
+    <Compile Include="Models\IdentityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
+      <DependentUpon>IdentityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CSC497_DB.Designer.cs">
+    <Compile Include="Models\IdentityModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CSC497_DB.edmx</DependentUpon>
+      <DependentUpon>IdentityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\tblAccount.cs">
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblAccounts_Courses.cs">
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblAccounts_Terms.cs">
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblCourse.cs">
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblTerm.cs">
-      <DependentUpon>CSC497_DB.tt</DependentUpon>
+      <DependentUpon>IdentityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -213,24 +201,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\CSC497_DB.Context.tt">
+    <Content Include="Models\IdentityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CSC497_DB.edmx</DependentUpon>
-      <LastGenOutput>CSC497_DB.Context.cs</LastGenOutput>
+      <DependentUpon>IdentityModel.edmx</DependentUpon>
+      <LastGenOutput>IdentityModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\CSC497_DB.tt">
+    <Content Include="Models\IdentityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CSC497_DB.edmx</DependentUpon>
-      <LastGenOutput>CSC497_DB.cs</LastGenOutput>
+      <DependentUpon>IdentityModel.edmx</DependentUpon>
+      <LastGenOutput>IdentityModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\CSC497_DB.edmx">
+    <EntityDeploy Include="Models\IdentityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CSC497_DB.Designer.cs</LastGenOutput>
+      <LastGenOutput>IdentityModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\CSC497_DB.edmx.diagram">
-      <DependentUpon>CSC497_DB.edmx</DependentUpon>
+    <Content Include="Models\IdentityModel.edmx.diagram">
+      <DependentUpon>IdentityModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

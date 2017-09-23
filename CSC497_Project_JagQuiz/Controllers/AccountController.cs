@@ -17,6 +17,7 @@ namespace CSC497_Project_JagQuiz.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private Project_CSC497Entities5 db = new Project_CSC497Entities5();
 
         public AccountController()
         {
@@ -147,12 +148,13 @@ namespace CSC497_Project_JagQuiz.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            int response = db.RegisterQuery(model);
+           
+            var test = db.uspRegisterUser(model.JagNumber, model.Email, model.Password, model.FirstName, model.LastName, 1);
+            return View("Login");
             // If we got this far, something failed, redisplay form
-            return View(model);
+            //return View(model);
         }
 
         //

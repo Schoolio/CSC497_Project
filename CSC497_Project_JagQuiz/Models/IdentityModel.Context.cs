@@ -15,10 +15,10 @@ namespace CSC497_Project_JagQuiz.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Project_CSC497Entities1 : DbContext
+    public partial class Project_CSC497Entities5 : DbContext
     {
-        public Project_CSC497Entities1()
-            : base("name=Project_CSC497Entities1")
+        public Project_CSC497Entities5()
+            : base("name=Project_CSC497Entities5")
         {
         }
     
@@ -28,12 +28,8 @@ namespace CSC497_Project_JagQuiz.Models
         }
     
         public virtual DbSet<tblAccount> tblAccounts { get; set; }
-        public virtual DbSet<tblAccounts_Courses> tblAccounts_Courses { get; set; }
-        public virtual DbSet<tblAccounts_Terms> tblAccounts_Terms { get; set; }
-        public virtual DbSet<tblCourse> tblCourses { get; set; }
-        public virtual DbSet<tblTerm> tblTerms { get; set; }
     
-        public virtual int uspRegisterUser(string pJagNumber, string pEmail, string pPasswordHash, string pFirstName, string pLastName, Nullable<int> pAccountType)
+        public virtual ObjectResult<string> uspRegisterUser(string pJagNumber, string pEmail, string pPasswordHash, string pFirstName, string pLastName, Nullable<int> pAccountType)
         {
             var pJagNumberParameter = pJagNumber != null ?
                 new ObjectParameter("pJagNumber", pJagNumber) :
@@ -59,7 +55,7 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pAccountType", pAccountType) :
                 new ObjectParameter("pAccountType", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspRegisterUser", pJagNumberParameter, pEmailParameter, pPasswordHashParameter, pFirstNameParameter, pLastNameParameter, pAccountTypeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspRegisterUser", pJagNumberParameter, pEmailParameter, pPasswordHashParameter, pFirstNameParameter, pLastNameParameter, pAccountTypeParameter);
         }
     }
 }

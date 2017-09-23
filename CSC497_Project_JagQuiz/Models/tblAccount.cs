@@ -14,12 +14,6 @@ namespace CSC497_Project_JagQuiz.Models
     
     public partial class tblAccount
     {
-        public tblAccount()
-        {
-            this.tblAccounts_Terms = new HashSet<tblAccounts_Terms>();
-            this.tblAccounts_Courses = new HashSet<tblAccounts_Courses>();
-        }
-    
         public int AccountID { get; set; }
         public string JagNumber { get; set; }
         public string bullshit { get; set; }
@@ -27,8 +21,5 @@ namespace CSC497_Project_JagQuiz.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Nullable<int> AccountType { get; set; }
-    
-        public virtual ICollection<tblAccounts_Terms> tblAccounts_Terms { get; set; }
-        public virtual ICollection<tblAccounts_Courses> tblAccounts_Courses { get; set; }
     }
 }
