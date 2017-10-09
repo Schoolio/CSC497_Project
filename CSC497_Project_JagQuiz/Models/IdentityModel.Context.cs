@@ -15,10 +15,10 @@ namespace CSC497_Project_JagQuiz.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Project_CSC497Entities5 : DbContext
+    public partial class CSC497_Account_Entity : DbContext
     {
-        public Project_CSC497Entities5()
-            : base("name=Project_CSC497Entities5")
+        public CSC497_Account_Entity()
+            : base("name=CSC497_Account_Entity")
         {
         }
     
@@ -29,7 +29,7 @@ namespace CSC497_Project_JagQuiz.Models
     
         public virtual DbSet<tblAccount> tblAccounts { get; set; }
     
-        public virtual ObjectResult<string> uspRegisterUser(string pJagNumber, string pEmail, string pPasswordHash, string pFirstName, string pLastName, Nullable<int> pAccountType)
+        public virtual int uspRegisterUser(string pJagNumber, string pEmail, string pPasswordHash, string pFirstName, string pLastName, Nullable<int> pAccountType)
         {
             var pJagNumberParameter = pJagNumber != null ?
                 new ObjectParameter("pJagNumber", pJagNumber) :
@@ -55,7 +55,59 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pAccountType", pAccountType) :
                 new ObjectParameter("pAccountType", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspRegisterUser", pJagNumberParameter, pEmailParameter, pPasswordHashParameter, pFirstNameParameter, pLastNameParameter, pAccountTypeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspRegisterUser", pJagNumberParameter, pEmailParameter, pPasswordHashParameter, pFirstNameParameter, pLastNameParameter, pAccountTypeParameter);
+        }
+    
+        public virtual int uspAddToCourse(string pEmail, string pCourseDpt, Nullable<int> pCourseNumb)
+        {
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            var pCourseDptParameter = pCourseDpt != null ?
+                new ObjectParameter("pCourseDpt", pCourseDpt) :
+                new ObjectParameter("pCourseDpt", typeof(string));
+    
+            var pCourseNumbParameter = pCourseNumb.HasValue ?
+                new ObjectParameter("pCourseNumb", pCourseNumb) :
+                new ObjectParameter("pCourseNumb", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspAddToCourse", pEmailParameter, pCourseDptParameter, pCourseNumbParameter);
+        }
+    
+        public virtual int uspChangePassword(string pEmail, string pNewPassword)
+        {
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            var pNewPasswordParameter = pNewPassword != null ?
+                new ObjectParameter("pNewPassword", pNewPassword) :
+                new ObjectParameter("pNewPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspChangePassword", pEmailParameter, pNewPasswordParameter);
+        }
+    
+        public virtual int uspDeleteAccount(string pEmail)
+        {
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspDeleteAccount", pEmailParameter);
+        }
+    
+        public virtual ObjectResult<uspLogIn_Result> uspLogIn(string pEmail, string pPassword)
+        {
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            var pPasswordParameter = pPassword != null ?
+                new ObjectParameter("pPassword", pPassword) :
+                new ObjectParameter("pPassword", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspLogIn_Result>("uspLogIn", pEmailParameter, pPasswordParameter);
         }
     }
 }

@@ -1,109 +1,214 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
+﻿using CSC497_Project_JagQuiz.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using CSC497_Project_JagQuiz.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Web;
 
 namespace CSC497_Project_JagQuiz
 {
-    public class EmailService : IIdentityMessageService
+    // This class is used to control and manage the active user of the system. When the ActiveUser value is null it is assumed that no user is logged into the system.
+    public class ApplicationUserManager : IDisposable
     {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
-        }
-    }
+        private CSC497_Account_Entity _db;
+        public EmailService EmailTool;
+        public AppUserState ActiveUserState = new AppUserState();
 
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
+        //Creating the Authentication Manager that handles the creation and deletion of authentication cookies within the application
+        private IAuthenticationManager AuthenticationManager
         {
-            // Plug in your SMS service here to send a text message.
-            return Task.FromResult(0);
-        }
-    }
-
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
-    {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
-            : base(store)
-        {
+            get { return System.Web.HttpContext.Current.GetOwinContext().Authentication; }
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        //Default Constructor
+        public ApplicationUserManager()
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+            _db = new CSC497_Account_Entity();
+            EmailTool = new EmailService();
+        }
 
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
-            };
+        //Create method for use in OWIN
+        public static ApplicationUserManager Create()
+        {
+            var manager = new ApplicationUserManager();
 
-            // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "Your security code is {0}"
-            });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
-            });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
             return manager;
         }
+
+        public bool ValidateUser(LoginViewModel model)
+        {
+            try
+            {
+                AppUserState local = AppUserState.BuildAccount(_db.uspLogIn(model.Email, model.Password).First());
+                if (!String.IsNullOrEmpty(local.UserName))
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //Method to call the SQL Procedure to register the user
+        public string Register(RegisterViewModel model)
+        {
+            var response = _db.uspRegisterUser(model.JagNumber, model.Email, model.Password, model.FirstName, model.LastName, 1);
+            return response.ToString();
+        }
+
+        //Identity Helper Functions
+        public void IdentitySignIn(LoginViewModel model)
+        {
+            ActiveUserState = AppUserState.BuildAccount(_db.uspLogIn(model.Email, model.Password).First());
+
+            //Taking the Active user and assigned it to a list of claims
+            var claims = new List<Claim>();
+
+            //Required Claims
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, ActiveUserState.UserName));
+            claims.Add(new Claim(ClaimTypes.Name, ActiveUserState.UserName));
+
+            //My serialized AppUserState object
+            claims.Add(new Claim("ActiveUserState", ActiveUserState.Serialize()));
+
+            //Assigning the claims to an identity object
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            //Assigning Authentication Properties
+            AuthenticationProperties myAuthenProps = new AuthenticationProperties() { AllowRefresh = true, IsPersistent = false, ExpiresUtc = DateTime.UtcNow.AddDays(7) };
+
+            //Creates the authentication cookie.
+            AuthenticationManager.SignIn(myAuthenProps, identity);
+        }
+
+        public void IdentitySignOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        #region Disposing Functionality
+        //Disposing functionality
+        protected bool Disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            Disposed = true;
+        }
+        #endregion
     }
 
-    // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    #region Email Service tools
+    public class EmailService
     {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
+
+    }
+    #endregion
+
+    #region My Active User Absract class and child classes
+    //My Active User Class
+    //Holds information about the current user
+    public class AppUserState
+    {
+        public string UserId = string.Empty;
+        public string UserName = string.Empty;
+        public string FirstName = string.Empty;
+        public string LastName = string.Empty;
+
+        public virtual string Serialize()
         {
+            return String.Join("|", new string[] { this.FirstName, this.LastName, this.UserName, this.UserId });
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+        public virtual bool Deserialize(string input)
         {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+            if (String.IsNullOrEmpty(input))
+            {
+                return false;
+            }
+
+            string[] strings = input.Split('|');
+
+            if (strings.Length < 4)
+            {
+                return false;
+            }
+
+            this.FirstName = strings[0];
+            this.LastName = strings[1];
+            this.UserName = strings[2];
+            this.UserId = strings[3];
+
+            return true;
         }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        public static AppUserState BuildAccount(uspLogIn_Result input)
         {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            if (input.AccountType == 1)
+            {
+                Admin output = new Admin();
+                output.FirstName = input.FirstName;
+                output.LastName = input.LastName;
+                output.UserName = input.Email;
+                return output;
+            }
+
+            else
+            {
+                Student output = new Student();
+                output.FirstName = input.FirstName;
+                output.LastName = input.LastName;
+                output.UserName = input.Email;
+                return output; ;
+            }
+
+        }
+
+        public AccountIndexViewModel toAccountIndexModel()
+        {
+            AccountIndexViewModel output = new AccountIndexViewModel();
+            output.email = UserName;
+            output.firstName = FirstName;
+            output.lastName = LastName;
+            return output;
+        }
+
+        public bool isEmpty()
+        {
+            if (string.IsNullOrEmpty(this.UserId) || string.IsNullOrEmpty(this.UserName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
+
+    class Admin : AppUserState
+    {
+
+    }
+    class Student : AppUserState
+    {
+
+    }
+
+    #endregion
 }

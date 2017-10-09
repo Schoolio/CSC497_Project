@@ -15,7 +15,16 @@ namespace CSC497_Project_JagQuiz.Models
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string course { get; set; }
+        public string email { get; set; }
+
+        public AccountIndexViewModel(string iemail, string ifirstname, string ilastname)
+        {
+            email = iemail;
+            lastName = ilastname;
+            firstName = ifirstname;
+        }
+
+        public AccountIndexViewModel() { }
     }
 
     public class ExternalLoginListViewModel
