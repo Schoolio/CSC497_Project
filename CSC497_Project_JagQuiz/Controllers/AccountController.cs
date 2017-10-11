@@ -33,7 +33,6 @@ namespace CSC497_Project_JagQuiz.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ApplicationUserManager.IdentitySignOut();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -48,7 +47,7 @@ namespace CSC497_Project_JagQuiz.Controllers
             if (ApplicationUserManager.ValidateUser(model))
             {
                 ApplicationUserManager.IdentitySignIn(model);
-                return AccountIndex();
+                return View("AccountIndex");
             }
             else
             {
@@ -145,14 +144,14 @@ namespace CSC497_Project_JagQuiz.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
         // GET: /Account/AccountIndex
         public ActionResult AccountIndex()
         {
-            AccountIndexViewModel local = new AccountIndexViewModel(ApplicationUserManager.ActiveUserState.UserId, ApplicationUserManager.ActiveUserState.FirstName, ApplicationUserManager.ActiveUserState.LastName);
+            AccountIndexViewModel local = new AccountIndexViewModel(ApplicationUserManager.ActiveUserState.Email, ApplicationUserManager.ActiveUserState.FirstName, ApplicationUserManager.ActiveUserState.LastName, ApplicationUserManager.ActiveUserState.JagNumber);
             return View(local);
         }
         #region Helpers

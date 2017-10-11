@@ -15,11 +15,13 @@ namespace CSC497_Project_JagQuiz.Models
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string email { get; set; }
+        public string Email { get; set; }
+        public string JagNumber { get; set; }
 
-        public AccountIndexViewModel(string iemail, string ifirstname, string ilastname)
+        public AccountIndexViewModel(string iemail, string ifirstname, string ilastname, string iJagNumber)
         {
-            email = iemail;
+            JagNumber = iJagNumber;
+            Email = iemail;
             lastName = ilastname;
             firstName = ifirstname;
         }

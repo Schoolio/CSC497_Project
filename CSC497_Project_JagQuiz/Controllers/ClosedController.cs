@@ -45,5 +45,10 @@ namespace CSC497_Project_JagQuiz.Controllers
 
             return claim.Value;
         }
+
+        public string BuildToken()
+        {
+            return null;
+        }
     }
 }

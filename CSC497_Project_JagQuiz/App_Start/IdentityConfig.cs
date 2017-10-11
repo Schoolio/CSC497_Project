@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Web;
+using System.Net.Mail;
 
 namespace CSC497_Project_JagQuiz
 {
@@ -43,7 +44,7 @@ namespace CSC497_Project_JagQuiz
             try
             {
                 AppUserState local = AppUserState.BuildAccount(_db.uspLogIn(model.Email, model.Password).First());
-                if (!String.IsNullOrEmpty(local.UserName))
+                if (!String.IsNullOrEmpty(local.JagNumber))
                 {
                     return true;
                 }
@@ -75,8 +76,8 @@ namespace CSC497_Project_JagQuiz
             var claims = new List<Claim>();
 
             //Required Claims
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, ActiveUserState.UserName));
-            claims.Add(new Claim(ClaimTypes.Name, ActiveUserState.UserName));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, ActiveUserState.JagNumber));
+            claims.Add(new Claim(ClaimTypes.Email, ActiveUserState.Email));
 
             //My serialized AppUserState object
             claims.Add(new Claim("ActiveUserState", ActiveUserState.Serialize()));
@@ -85,7 +86,7 @@ namespace CSC497_Project_JagQuiz
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 
             //Assigning Authentication Properties
-            AuthenticationProperties myAuthenProps = new AuthenticationProperties() { AllowRefresh = true, IsPersistent = false, ExpiresUtc = DateTime.UtcNow.AddDays(7) };
+            AuthenticationProperties myAuthenProps = new AuthenticationProperties() { AllowRefresh = true, IsPersistent = false, ExpiresUtc = DateTime.UtcNow.AddMinutes(5) };
 
             //Creates the authentication cookie.
             AuthenticationManager.SignIn(myAuthenProps, identity);
@@ -116,23 +117,47 @@ namespace CSC497_Project_JagQuiz
     #region Email Service tools
     public class EmailService
     {
+        SmtpClient client;
+        
+        public EmailService()
+        {
+            client = new SmtpClient("smtp.gmail.com", 465);
+            client.Credentials = new NetworkCredential("JagMatch@southalabama.edu", "South2017");
+        }
 
+        public bool ForgotPasswordEmail(string target, string link)
+        {
+            try
+            {
+                MailMessage local = new MailMessage();
+                local.From = new MailAddress("JagMatch@southalabama.edu");
+                local.To.Add(target);
+                local.Subject = "Password Reset Link";
+                local.Subject = "Here is the link to reset your password: \n" + link;
+                client.Send(local);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
     #endregion
 
-    #region My Active User Absract class and child classes
+    #region My Active User class and child classes
     //My Active User Class
     //Holds information about the current user
     public class AppUserState
     {
-        public string UserId = string.Empty;
-        public string UserName = string.Empty;
+        public string JagNumber = string.Empty;
+        public string Email = string.Empty;
         public string FirstName = string.Empty;
         public string LastName = string.Empty;
 
         public virtual string Serialize()
         {
-            return String.Join("|", new string[] { this.FirstName, this.LastName, this.UserName, this.UserId });
+            return String.Join("|", new string[] { this.JagNumber, this.Email, this.FirstName, this.LastName});
         }
 
         public virtual bool Deserialize(string input)
@@ -149,10 +174,10 @@ namespace CSC497_Project_JagQuiz
                 return false;
             }
 
-            this.FirstName = strings[0];
-            this.LastName = strings[1];
-            this.UserName = strings[2];
-            this.UserId = strings[3];
+            this.JagNumber = strings[0];
+            this.Email = strings[1];
+            this.FirstName = strings[2];
+            this.LastName = strings[3];
 
             return true;
         }
@@ -164,7 +189,8 @@ namespace CSC497_Project_JagQuiz
                 Admin output = new Admin();
                 output.FirstName = input.FirstName;
                 output.LastName = input.LastName;
-                output.UserName = input.Email;
+                output.Email = input.Email;
+                output.JagNumber = input.JagNumber;
                 return output;
             }
 
@@ -173,24 +199,16 @@ namespace CSC497_Project_JagQuiz
                 Student output = new Student();
                 output.FirstName = input.FirstName;
                 output.LastName = input.LastName;
-                output.UserName = input.Email;
+                output.Email = input.Email;
+                output.JagNumber = input.JagNumber;
                 return output; ;
             }
 
         }
 
-        public AccountIndexViewModel toAccountIndexModel()
-        {
-            AccountIndexViewModel output = new AccountIndexViewModel();
-            output.email = UserName;
-            output.firstName = FirstName;
-            output.lastName = LastName;
-            return output;
-        }
-
         public bool isEmpty()
         {
-            if (string.IsNullOrEmpty(this.UserId) || string.IsNullOrEmpty(this.UserName))
+            if (string.IsNullOrEmpty(this.JagNumber) || string.IsNullOrEmpty(this.Email))
             {
                 return true;
             }
@@ -207,7 +225,8 @@ namespace CSC497_Project_JagQuiz
     }
     class Student : AppUserState
     {
-
+        public List<string> Courses = new List<string>();
+        //public List<uspGetTerms> Terms = new List<uspGetTerms>();
     }
 
     #endregion

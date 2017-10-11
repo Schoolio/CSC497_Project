@@ -13,22 +13,35 @@
                     <div class="panel-heading text-center">Account Information</div>
                     <div class="panel-body">
                         <div>
+                            @Html.LabelFor(m => m.JagNumber, "JagNumber: ")
+                            @Html.DisplayFor(m => m.JagNumber)
+                        </div>
+                        <div>
+                            @Html.LabelFor(m => m.Email, "Email: ")
+                            @Html.DisplayFor(m => m.Email)
+                        </div>
+                        <div>
                             @Html.LabelFor(m => m.firstName, "First Name: ")
                             @Html.DisplayFor(m => m.firstName)
                         </div>
                         <div>
                             @Html.LabelFor(m => m.lastName, "Last Name: ")
                             @Html.DisplayFor(m => m.lastName)
-                        </div>
+                        </div>                        
+                        @Html.ActionLink("Change Password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input class="btn btn-default" type="submit" value="LogOff" />
+                        }
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading text-center">Options</div>
+                    <div class="panel-heading text-center">Scores</div>
                     <div class="panel-body">
-                        <input class="btn btn-default" type="button" value="Change Course" />
-                        <input class="btn btn-default" type="submit" value="Change Password" />
+
                     </div>
                 </div>
             </div>

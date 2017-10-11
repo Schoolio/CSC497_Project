@@ -23,7 +23,8 @@ namespace CSC497_Project_JagQuiz
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login")
+                LoginPath = new PathString("/Account/Login"),
+                ExpireTimeSpan = new TimeSpan(0,5,0)
             });
         }
     }
