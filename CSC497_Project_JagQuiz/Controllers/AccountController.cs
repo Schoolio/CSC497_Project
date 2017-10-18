@@ -44,10 +44,11 @@ namespace CSC497_Project_JagQuiz.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            ApplicationUserManager.IdentitySignOut();
             if (ApplicationUserManager.ValidateUser(model))
             {
                 ApplicationUserManager.IdentitySignIn(model);
-                return View("AccountIndex");
+               return Redirect("AccountIndex");
             }
             else
             {
@@ -144,6 +145,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            Session.Abandon();
             return RedirectToAction("Login", "Account");
         }
 
