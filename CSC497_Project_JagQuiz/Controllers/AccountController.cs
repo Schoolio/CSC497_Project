@@ -4,26 +4,28 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CSC497_Project_JagQuiz.Models;
+using System.Collections.Generic;
 
 namespace CSC497_Project_JagQuiz.Controllers
 {
     [Authorize]
     public class AccountController : ClosedController
     {
-        public ApplicationUserManager UserManager
+        public UserManager UserManager
         {
             get
             {
-                return ApplicationUserManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return userManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
             }
             private set
             {
-                ApplicationUserManager = value;
+                userManager = value;
             }
         }
 
@@ -44,10 +46,10 @@ namespace CSC497_Project_JagQuiz.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            ApplicationUserManager.IdentitySignOut();
-            if (ApplicationUserManager.ValidateUser(model))
+            userManager.IdentitySignOut();
+            if (userManager.ValidateUser(model))
             {
-                ApplicationUserManager.IdentitySignIn(model);
+                userManager.IdentitySignIn(model);
                return Redirect("AccountIndex");
             }
             else
@@ -71,7 +73,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            ApplicationUserManager.Register(model);
+            userManager.Register(model);
             return View("Login");
             // If we got this far, something failed, redisplay form
             //return View(model);
@@ -153,9 +155,11 @@ namespace CSC497_Project_JagQuiz.Controllers
         // GET: /Account/AccountIndex
         public ActionResult AccountIndex()
         {
-            AccountIndexViewModel local = new AccountIndexViewModel(ApplicationUserManager.ActiveUserState.Email, ApplicationUserManager.ActiveUserState.FirstName, ApplicationUserManager.ActiveUserState.LastName, ApplicationUserManager.ActiveUserState.JagNumber);
+            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.getCourses());
             return View(local);
         }
+
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

@@ -13,13 +13,13 @@ namespace CSC497_Project_JagQuiz.Controllers
 {
     public class ClosedController : Controller
     {
-        protected ApplicationUserManager ApplicationUserManager = new ApplicationUserManager();
+        protected UserManager userManager = new UserManager();
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-            AppUserState localAppUserState = new AppUserState();
+            AppUser localAppUserState = new AppUser();
 
             if (User is ClaimsPrincipal)
             {
@@ -34,7 +34,7 @@ namespace CSC497_Project_JagQuiz.Controllers
                 }
             }
 
-            ApplicationUserManager.ActiveUserState = localAppUserState;
+            userManager.appUser = localAppUserState;
         }
 
         public static string GetClaim(List<Claim> claims, string key)

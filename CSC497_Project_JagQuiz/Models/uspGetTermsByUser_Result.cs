@@ -10,16 +10,10 @@
 namespace CSC497_Project_JagQuiz.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblAccount
+    public partial class uspGetTermsByUser_Result
     {
-        public int AccountID { get; set; }
-        public string JagNumber { get; set; }
-        public string Email { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<int> AccountType { get; set; }
+        public string Term { get; set; }
+        public Nullable<int> Score { get; set; }
     }
 }

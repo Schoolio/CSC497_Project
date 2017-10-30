@@ -175,9 +175,6 @@
   <ItemGroup>
     <Compile Include="Controllers\ClosedController.cs" />
     <Compile Include="Controllers\ExerciseController.cs" />
-    <Compile Include="Models\uspLogIn_Result.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs">
@@ -192,24 +189,27 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModel.Context.cs">
+    <Compile Include="Models\CSC497_dbcontext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IdentityModel.Context.tt</DependentUpon>
+      <DependentUpon>CSC497_dbcontext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModel.cs">
+    <Compile Include="Models\CSC497_dbcontext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IdentityModel.tt</DependentUpon>
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModel.Designer.cs">
+    <Compile Include="Models\CSC497_dbcontext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IdentityModel.edmx</DependentUpon>
+      <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\tblAccount.cs">
-      <DependentUpon>IdentityModel.tt</DependentUpon>
+    <Compile Include="Models\uspGetTermsByUser_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspLogIn_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -221,25 +221,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\IdentityModel.Context.tt">
+    <Content Include="Models\CSC497_dbcontext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IdentityModel.edmx</DependentUpon>
-      <LastGenOutput>IdentityModel.Context.cs</LastGenOutput>
+      <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
+      <LastGenOutput>CSC497_dbcontext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\IdentityModel.tt">
+    <Content Include="Models\CSC497_dbcontext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IdentityModel.edmx</DependentUpon>
-      <LastGenOutput>IdentityModel.cs</LastGenOutput>
+      <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
+      <LastGenOutput>CSC497_dbcontext.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\IdentityModel.edmx">
+    <EntityDeploy Include="Models\CSC497_dbcontext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IdentityModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>CSC497_dbcontext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\IdentityModel.edmx.diagram">
-      <DependentUpon>IdentityModel.edmx</DependentUpon>
+    <Content Include="Models\CSC497_dbcontext.edmx.diagram">
+      <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CSC497_Solution.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

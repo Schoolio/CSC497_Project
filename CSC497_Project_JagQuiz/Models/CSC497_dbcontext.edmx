@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CSC497_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="uspAddToCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
+          <Parameter Name="pCourseNumb" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="pNewPassword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspDeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspGetCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pAccountFK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspGetTermsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pAccountFK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspLogIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="pPassword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pJagNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="pPasswordHash" Type="nvarchar" Mode="In" />
+          <Parameter Name="pFirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="pLastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="pAccountType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspRemoveCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
+          <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
+          <Parameter Name="pCourseNumb" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CSC497_EntityModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSC497_EntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Project_CSC497Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="uspAddToCourse">
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+            <Parameter Name="pCourseDscpt" Mode="In" Type="String" />
+            <Parameter Name="pCourseNumb" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspChangePassword">
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+            <Parameter Name="pNewPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteAccount">
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetCourses" ReturnType="Collection(String)">
+            <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetTermsByUser" ReturnType="Collection(CSC497_EntityModel.uspGetTermsByUser_Result)">
+            <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspLogIn" ReturnType="Collection(CSC497_EntityModel.uspLogIn_Result)">
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+            <Parameter Name="pPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspRegisterUser" ReturnType="Collection(String)">
+            <Parameter Name="pJagNumber" Mode="In" Type="String" />
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+            <Parameter Name="pPasswordHash" Mode="In" Type="String" />
+            <Parameter Name="pFirstName" Mode="In" Type="String" />
+            <Parameter Name="pLastName" Mode="In" Type="String" />
+            <Parameter Name="pAccountType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspRemoveCourse">
+            <Parameter Name="pEmail" Mode="In" Type="String" />
+            <Parameter Name="pCourseDscpt" Mode="In" Type="String" />
+            <Parameter Name="pCourseNumb" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="uspGetTermsByUser_Result">
+          <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Score" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspLogIn_Result">
+          <Property Type="Int32" Name="AccountID" Nullable="false" />
+          <Property Type="String" Name="JagNumber" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="48" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="AccountType" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CSC497_EntityModelStoreContainer" CdmEntityContainer="Project_CSC497Entities" >
+          <FunctionImportMapping FunctionImportName="uspAddToCourse" FunctionName="CSC497_EntityModel.Store.uspAddToCourse" />
+          <FunctionImportMapping FunctionImportName="uspChangePassword" FunctionName="CSC497_EntityModel.Store.uspChangePassword" />
+          <FunctionImportMapping FunctionImportName="uspDeleteAccount" FunctionName="CSC497_EntityModel.Store.uspDeleteAccount" />
+          <FunctionImportMapping FunctionImportName="uspGetCourses" FunctionName="CSC497_EntityModel.Store.uspGetCourses" />
+          <FunctionImportMapping FunctionImportName="uspGetTermsByUser" FunctionName="CSC497_EntityModel.Store.uspGetTermsByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermsByUser_Result">
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspLogIn" FunctionName="CSC497_EntityModel.Store.uspLogIn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspLogIn_Result">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="JagNumber" ColumnName="JagNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspRegisterUser" FunctionName="CSC497_EntityModel.Store.uspRegisterUser" />
+          <FunctionImportMapping FunctionImportName="uspRemoveCourse" FunctionName="CSC497_EntityModel.Store.uspRemoveCourse" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

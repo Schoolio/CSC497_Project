@@ -7,44 +7,66 @@
 <h2>IndexViewModel</h2>
 
 <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">Account Information</div>
-                    <div class="panel-body">
-                        <div>
-                            @Html.LabelFor(m => m.JagNumber, "JagNumber: ")
-                            @Html.DisplayFor(m => m.JagNumber)
-                        </div>
-                        <div>
-                            @Html.LabelFor(m => m.Email, "Email: ")
-                            @Html.DisplayFor(m => m.Email)
-                        </div>
-                        <div>
-                            @Html.LabelFor(m => m.firstName, "First Name: ")
-                            @Html.DisplayFor(m => m.firstName)
-                        </div>
-                        <div>
-                            @Html.LabelFor(m => m.lastName, "Last Name: ")
-                            @Html.DisplayFor(m => m.lastName)
-                        </div>                        
-                        @Html.ActionLink("Change Password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
-                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <input class="btn btn-default" type="submit" value="LogOff" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Account Information</div>
+                <div class="panel-body">
+                    <div>
+                        @Html.LabelFor(m => m.JagNumber, "JagNumber: ")
+                        @Html.DisplayFor(m => m.JagNumber)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Email, "Email: ")
+                        @Html.DisplayFor(m => m.Email)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.firstName, "First Name: ")
+                        @Html.DisplayFor(m => m.firstName)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.lastName, "Last Name: ")
+                        @Html.DisplayFor(m => m.lastName)
+                    </div>
+                    @Html.ActionLink("Change Password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input class="btn btn-default" type="submit" value="LogOff" />
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">Index</div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Home">Home</a></li>
+                        @{
+                            for (int x = 0; x < Model.courses.Count; x++)
+                            {
+                                <li><a data-toggle="tab" href='#@Model.courses[x]'> @Model.courses[x] </a></li>
+                            }
                         }
+                    </ul>
+                    <div class="tab-content">
+                        @{
+                            for (int x = 0; x < Model.courses.Count; x++)
+                            {
+                                <div id=@Model.courses[x] class="tab-pane fade">
+                                    <p>@Model.courses[x] and some other content</p>
+                                </div>
+                            }
+                        }
+                        <div id="Home" class="tab-pane fade in active">
+                            <h3>Home</h3>
+                                <p>sample content</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">Scores</div>
-                    <div class="panel-body">
+        </div>
 
-                    </div>
-                </div>
-            </div>
-        
     </div>
 </div>

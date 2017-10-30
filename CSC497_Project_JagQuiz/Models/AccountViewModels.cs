@@ -17,17 +17,20 @@ namespace CSC497_Project_JagQuiz.Models
         public string lastName { get; set; }
         public string Email { get; set; }
         public string JagNumber { get; set; }
+        public List<string> courses { get; set; }
 
-        public AccountIndexViewModel(string iemail, string ifirstname, string ilastname, string iJagNumber)
+        public AccountIndexViewModel(AppUser appUser, List<string> courses)
         {
-            JagNumber = iJagNumber;
-            Email = iemail;
-            lastName = ilastname;
-            firstName = ifirstname;
+            JagNumber = appUser.JagNumber;
+            Email = appUser.Email;
+            lastName = appUser.LastName;
+            firstName = appUser.FirstName;
+            this.courses = courses;
         }
 
-        public AccountIndexViewModel() { }
     }
+
+  
 
     public class ExternalLoginListViewModel
     {
@@ -83,24 +86,24 @@ namespace CSC497_Project_JagQuiz.Models
 
     public class RegisterViewModel
     {
-        //[Required]
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        //[Required]
+        [Required]
         [Display(Name = "Jag Number")]
         public string JagNumber { get; set; }
 
-        //[Required]
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        //[Required]
+        [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        //[Required]
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -8,15 +8,16 @@ using System.Net;
 using System.Security.Claims;
 using System.Web;
 using System.Net.Mail;
+using System.Data.Entity.Core.Objects;
 
 namespace CSC497_Project_JagQuiz
 {
     // This class is used to control and manage the active user of the system. When the ActiveUser value is null it is assumed that no user is logged into the system.
-    public class ApplicationUserManager : IDisposable
+    public class UserManager : IDisposable
     {
-        private CSC497_Account_Entity _db;
+        public Project_CSC497Entities dbContext;
         public EmailService EmailTool;
-        public AppUserState ActiveUserState = new AppUserState();
+        public AppUser appUser;
 
         //Creating the Authentication Manager that handles the creation and deletion of authentication cookies within the application
         private IAuthenticationManager AuthenticationManager
@@ -25,16 +26,17 @@ namespace CSC497_Project_JagQuiz
         }
 
         //Default Constructor
-        public ApplicationUserManager()
+        public UserManager()
         {
-            _db = new CSC497_Account_Entity();
-            EmailTool = new EmailService();
+            dbContext = new Project_CSC497Entities();
+            EmailTool = new EmailService();            
+            appUser = new AppUser();
         }
 
         //Create method for use in OWIN
-        public static ApplicationUserManager Create()
+        public static UserManager Create()
         {
-            var manager = new ApplicationUserManager();
+            var manager = new UserManager();
 
             return manager;
         }
@@ -43,7 +45,7 @@ namespace CSC497_Project_JagQuiz
         {
             try
             {
-                AppUserState local = AppUserState.BuildAccount(_db.uspLogIn(model.Email, model.Password).First());
+                AppUser local = AppUser.BuildAppUser(dbContext.uspLogIn(model.Email, model.Password).First());
                 if (!String.IsNullOrEmpty(local.JagNumber))
                 {
                     return true;
@@ -63,24 +65,26 @@ namespace CSC497_Project_JagQuiz
         //Method to call the SQL Procedure to register the user
         public string Register(RegisterViewModel model)
         {
-            var response = _db.uspRegisterUser(model.JagNumber, model.Email, model.Password, model.FirstName, model.LastName, 1);
+            var response = dbContext.uspRegisterUser(model.JagNumber, model.Email, model.Password, model.FirstName, model.LastName, 0);
             return response.ToString();
         }
 
         //Identity Helper Functions
         public void IdentitySignIn(LoginViewModel model)
         {
-            ActiveUserState = AppUserState.BuildAccount(_db.uspLogIn(model.Email, model.Password).First());
+            appUser = AppUser.BuildAppUser(dbContext.uspLogIn(model.Email, model.Password).First());
 
             //Taking the Active user and assigned it to a list of claims
             var claims = new List<Claim>();
 
             //Required Claims
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, ActiveUserState.JagNumber));
-            claims.Add(new Claim(ClaimTypes.Email, ActiveUserState.Email));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, appUser.JagNumber));
+            claims.Add(new Claim(ClaimTypes.Email, appUser.Email));
 
             //My serialized AppUserState object
-            claims.Add(new Claim("ActiveUserState", ActiveUserState.Serialize()));
+            claims.Add(new Claim("ActiveUserState", appUser.Serialize()));
+
+            
 
             //Assigning the claims to an identity object
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
@@ -95,6 +99,19 @@ namespace CSC497_Project_JagQuiz
         public void IdentitySignOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        public List<string> getCourses()
+        {
+            List<string> output = new List<string>();
+            ObjectResult<string> data = dbContext.uspGetCourses(appUser.AccountID);
+
+            foreach (string result in data)
+            {
+                output.Add(result);
+            }
+
+            return output;
         }
 
         #region Disposing Functionality
@@ -148,16 +165,17 @@ namespace CSC497_Project_JagQuiz
     #region My Active User class and child classes
     //My Active User Class
     //Holds information about the current user
-    public class AppUserState
+    public class AppUser
     {
         public string JagNumber = string.Empty;
         public string Email = string.Empty;
         public string FirstName = string.Empty;
         public string LastName = string.Empty;
+        public int AccountID;
 
         public virtual string Serialize()
         {
-            return String.Join("|", new string[] { this.JagNumber, this.Email, this.FirstName, this.LastName});
+            return String.Join("|", new string[] { this.JagNumber, this.Email, this.FirstName, this.LastName, this.AccountID.ToString()});
         }
 
         public virtual bool Deserialize(string input)
@@ -178,11 +196,12 @@ namespace CSC497_Project_JagQuiz
             this.Email = strings[1];
             this.FirstName = strings[2];
             this.LastName = strings[3];
+            this.AccountID = Convert.ToInt32(strings[4]);
 
             return true;
         }
 
-        public static AppUserState BuildAccount(uspLogIn_Result input)
+        public static AppUser BuildAppUser(uspLogIn_Result input)
         {
             if (input.AccountType == 1)
             {
@@ -191,6 +210,7 @@ namespace CSC497_Project_JagQuiz
                 output.LastName = input.LastName;
                 output.Email = input.Email;
                 output.JagNumber = input.JagNumber;
+                output.AccountID = input.AccountID;
                 return output;
             }
 
@@ -201,6 +221,7 @@ namespace CSC497_Project_JagQuiz
                 output.LastName = input.LastName;
                 output.Email = input.Email;
                 output.JagNumber = input.JagNumber;
+                output.AccountID = input.AccountID;
                 return output; ;
             }
 
@@ -219,11 +240,11 @@ namespace CSC497_Project_JagQuiz
         }
     }
 
-    class Admin : AppUserState
+    class Admin : AppUser
     {
 
     }
-    class Student : AppUserState
+    class Student : AppUser
     {
         public List<string> Courses = new List<string>();
         //public List<uspGetTerms> Terms = new List<uspGetTerms>();

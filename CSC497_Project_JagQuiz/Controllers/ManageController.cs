@@ -13,7 +13,7 @@ namespace CSC497_Project_JagQuiz.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationUserManager _userManager;
+        private UserManager _userManager;
 
     }
 }

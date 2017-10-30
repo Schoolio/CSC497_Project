@@ -13,6 +13,7 @@ namespace CSC497_Project_JagQuiz.Models
     
     public partial class uspLogIn_Result
     {
+        public int AccountID { get; set; }
         public string JagNumber { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
