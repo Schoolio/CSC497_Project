@@ -114,6 +114,11 @@ namespace CSC497_Project_JagQuiz
             return output;
         }
 
+        public int  changePassword(AccountOptionsViewModel model)
+        {
+            return dbContext.uspChangePassword(appUser.Email, model.newPassword);
+        }
+
         #region Disposing Functionality
         //Disposing functionality
         protected bool Disposed = false;

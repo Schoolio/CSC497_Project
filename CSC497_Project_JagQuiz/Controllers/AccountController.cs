@@ -17,19 +17,6 @@ namespace CSC497_Project_JagQuiz.Controllers
     [Authorize]
     public class AccountController : ClosedController
     {
-        public UserManager UserManager
-        {
-            get
-            {
-                return userManager ?? HttpContext.GetOwinContext().GetUserManager<UserManager>();
-            }
-            private set
-            {
-                userManager = value;
-            }
-        }
-
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -43,7 +30,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             userManager.IdentitySignOut();
@@ -159,6 +146,23 @@ namespace CSC497_Project_JagQuiz.Controllers
             return View(local);
         }
 
+        public ActionResult AccountOptions()
+        {
+            AccountOptionsViewModel local = new AccountOptionsViewModel(userManager.appUser, userManager.getCourses(), userManager.getCourses());
+            return View(local);
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(AccountOptionsViewModel model)
+        {
+            userManager.changePassword(model);
+            return Redirect("AccountOptions");
+        }
+
+        public ActionResult RegisterCourse(string course, string pass)
+        {
+            return Redirect("AccountOptions");
+        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins

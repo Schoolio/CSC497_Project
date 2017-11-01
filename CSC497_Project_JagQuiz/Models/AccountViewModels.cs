@@ -30,7 +30,48 @@ namespace CSC497_Project_JagQuiz.Models
 
     }
 
-  
+    public class AccountOptionsViewModel
+    {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string Email { get; set; }
+        public string JagNumber { get; set; }
+        public int AccountType { get; set; }
+        public List<string> courses { get; set; }
+        public string newPassword { get; set; }
+        [Compare("newPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string confirmPassword { get; set; }
+        public List<string> allCourses{ get; set;}
+        public AccountOptionsViewModel()
+        {
+            JagNumber ="";
+            Email = "";
+            lastName = "";
+            firstName = "";
+            AccountType = 0;
+            newPassword = "";
+            confirmPassword = "";
+        }
+        public AccountOptionsViewModel(AppUser appUser, List<string> courses, List<string> allCourses)
+        {
+            Email = appUser.Email;
+            lastName = appUser.LastName;
+            firstName = appUser.FirstName;
+            this.allCourses = allCourses;
+            if(appUser.ToString() == "Student"){
+                AccountType = 0;
+            }
+            else
+            {
+                AccountType = 1;
+            }
+
+            this.courses = courses;
+            newPassword = "";
+            confirmPassword = "";
+
+        }
+    }
 
     public class ExternalLoginListViewModel
     {
