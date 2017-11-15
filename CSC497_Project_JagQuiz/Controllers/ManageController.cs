@@ -11,9 +11,50 @@ using CSC497_Project_JagQuiz.Models;
 namespace CSC497_Project_JagQuiz.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : ClosedController
     {
-        private UserManager _userManager;
+        public ActionResult Management()
+        {
+            ManagementViewModel local = new ManagementViewModel(userManager);
+            return View("Management", local);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCourse() 
+        {
+            
+            return Redirect("Management");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCourse()
+        {
+            return Redirect("Management");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddTerms()
+        {
+            return Redirect("Management");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteTerms()
+        {
+            return Redirect("Management");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ModifyTerm()
+        {
+            return Redirect("Management");
+        }
+
+        
     }
 }

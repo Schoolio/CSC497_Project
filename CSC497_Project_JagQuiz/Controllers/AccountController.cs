@@ -67,29 +67,11 @@ namespace CSC497_Project_JagQuiz.Controllers
         }
 
         //
-        // GET: /Account/ConfirmEmail
-        [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
-        {
-           return null;
-        }
-
-        //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
-        }
-
-        //
-        // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            return null;
         }
 
         //
@@ -109,23 +91,12 @@ namespace CSC497_Project_JagQuiz.Controllers
         }
 
         //
-        // POST: /Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            return View();
-        }
-
-        //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
-
 
         //
         // POST: /Account/LogOff
@@ -137,18 +108,18 @@ namespace CSC497_Project_JagQuiz.Controllers
             Session.Abandon();
             return RedirectToAction("Login", "Account");
         }
-
+        
         //
         // GET: /Account/AccountIndex
         public ActionResult AccountIndex()
         {
-            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.getCourses());
+            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.dbContext.uspGetCourses(userManager.appUser.AccountID).ToList());
             return View(local);
         }
 
         public ActionResult AccountOptions()
         {
-            AccountOptionsViewModel local = new AccountOptionsViewModel(userManager.appUser, userManager.getCourses(), userManager.getCourses());
+            AccountOptionsViewModel local = new AccountOptionsViewModel(userManager.appUser, userManager.dbContext.uspGetCourses(userManager.appUser.AccountID).ToList(), userManager.dbContext.uspGetAllCourses().ToList());
             return View(local);
         }
 

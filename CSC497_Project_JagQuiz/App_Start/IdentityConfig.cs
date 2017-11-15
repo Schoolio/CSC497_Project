@@ -103,8 +103,23 @@ namespace CSC497_Project_JagQuiz
 
         public List<string> getCourses()
         {
+            //List<string> output = new List<string>();
+            //ObjectResult<string> data = dbContext.uspGetCourses(appUser.AccountID);
+            
+            //foreach (string result in data)
+            //{
+            //    output.Add(result);
+            //}
+
+            //return output;
+
+            return dbContext.uspGetCourses(appUser.AccountID).ToList();
+        }
+
+        public List<string> getAllCourses()
+        {
             List<string> output = new List<string>();
-            ObjectResult<string> data = dbContext.uspGetCourses(appUser.AccountID);
+            ObjectResult<string> data = dbContext.uspGetAllCourses();
 
             foreach (string result in data)
             {
@@ -116,7 +131,7 @@ namespace CSC497_Project_JagQuiz
 
         public int  changePassword(AccountOptionsViewModel model)
         {
-            return dbContext.uspChangePassword(appUser.Email, model.newPassword);
+            return dbContext.uspChangePassword(appUser.Email, model.passwordConfirmation.ConfirmPassword);
         }
 
         #region Disposing Functionality
@@ -177,10 +192,11 @@ namespace CSC497_Project_JagQuiz
         public string FirstName = string.Empty;
         public string LastName = string.Empty;
         public int AccountID;
+        public string role;
 
         public virtual string Serialize()
         {
-            return String.Join("|", new string[] { this.JagNumber, this.Email, this.FirstName, this.LastName, this.AccountID.ToString()});
+            return String.Join("|", new string[] { this.JagNumber, this.Email, this.FirstName, this.LastName, this.AccountID.ToString(), this.role});
         }
 
         public virtual bool Deserialize(string input)
@@ -192,7 +208,7 @@ namespace CSC497_Project_JagQuiz
 
             string[] strings = input.Split('|');
 
-            if (strings.Length < 4)
+            if (strings.Length < 5)
             {
                 return false;
             }
@@ -202,34 +218,20 @@ namespace CSC497_Project_JagQuiz
             this.FirstName = strings[2];
             this.LastName = strings[3];
             this.AccountID = Convert.ToInt32(strings[4]);
+            this.role = strings[5];
 
             return true;
         }
 
         public static AppUser BuildAppUser(uspLogIn_Result input)
         {
-            if (input.AccountType == 1)
-            {
-                Admin output = new Admin();
-                output.FirstName = input.FirstName;
-                output.LastName = input.LastName;
-                output.Email = input.Email;
-                output.JagNumber = input.JagNumber;
-                output.AccountID = input.AccountID;
-                return output;
-            }
-
-            else
-            {
-                Student output = new Student();
-                output.FirstName = input.FirstName;
-                output.LastName = input.LastName;
-                output.Email = input.Email;
-                output.JagNumber = input.JagNumber;
-                output.AccountID = input.AccountID;
-                return output; ;
-            }
-
+            AppUser output = new AppUser();
+            output.FirstName = input.FirstName;
+            output.LastName = input.LastName;
+            output.Email = input.Email;
+            output.JagNumber = input.JagNumber;
+            output.AccountID = input.AccountID;
+            return output;
         }
 
         public bool isEmpty()
@@ -245,11 +247,15 @@ namespace CSC497_Project_JagQuiz
         }
     }
 
-    class Admin : AppUser
+    abstract class Role
     {
 
     }
-    class Student : AppUser
+    class AdminRole : Role
+    {
+
+    }
+    class StudentRole : Role
     {
         public List<string> Courses = new List<string>();
         //public List<uspGetTerms> Terms = new List<uspGetTerms>();

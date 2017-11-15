@@ -13,20 +13,20 @@
                 <div class="panel-heading text-center">Account Information</div>
                 <div class="panel-body">
                     <div>
-                        @Html.LabelFor(m => m.JagNumber, "JagNumber: ")
-                        @Html.DisplayFor(m => m.JagNumber)
+                        @Html.LabelFor(m => m.appUser.JagNumber, "JagNumber: ")
+                        @Html.DisplayFor(m => m.appUser.JagNumber)
                     </div>
                     <div>
-                        @Html.LabelFor(m => m.Email, "Email: ")
-                        @Html.DisplayFor(m => m.Email)
+                        @Html.LabelFor(m => m.appUser.Email, "Email: ")
+                        @Html.DisplayFor(m => m.appUser.Email)
                     </div>
                     <div>
-                        @Html.LabelFor(m => m.firstName, "First Name: ")
-                        @Html.DisplayFor(m => m.firstName)
+                        @Html.LabelFor(m => m.appUser.FirstName, "First Name: ")
+                        @Html.DisplayFor(m => m.appUser.FirstName)
                     </div>
                     <div>
-                        @Html.LabelFor(m => m.lastName, "Last Name: ")
-                        @Html.DisplayFor(m => m.lastName)
+                        @Html.LabelFor(m => m.appUser.LastName, "Last Name: ")
+                        @Html.DisplayFor(m => m.appUser.LastName)
                     </div>
                     @Html.ActionLink("Change Password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

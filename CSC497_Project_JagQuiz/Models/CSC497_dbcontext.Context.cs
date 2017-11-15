@@ -28,7 +28,7 @@ namespace CSC497_Project_JagQuiz.Models
         }
     
     
-        public virtual int uspAddToCourse(string pEmail, string pCourseDscpt, Nullable<int> pCourseNumb)
+        public virtual int uspAddToCourse(string pEmail, string pCourseDscpt)
         {
             var pEmailParameter = pEmail != null ?
                 new ObjectParameter("pEmail", pEmail) :
@@ -38,11 +38,7 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pCourseDscpt", pCourseDscpt) :
                 new ObjectParameter("pCourseDscpt", typeof(string));
     
-            var pCourseNumbParameter = pCourseNumb.HasValue ?
-                new ObjectParameter("pCourseNumb", pCourseNumb) :
-                new ObjectParameter("pCourseNumb", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspAddToCourse", pEmailParameter, pCourseDscptParameter, pCourseNumbParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspAddToCourse", pEmailParameter, pCourseDscptParameter);
         }
     
         public virtual int uspChangePassword(string pEmail, string pNewPassword)
@@ -127,7 +123,7 @@ namespace CSC497_Project_JagQuiz.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspRegisterUser", pJagNumberParameter, pEmailParameter, pPasswordHashParameter, pFirstNameParameter, pLastNameParameter, pAccountTypeParameter);
         }
     
-        public virtual int uspRemoveCourse(string pEmail, string pCourseDscpt, Nullable<int> pCourseNumb)
+        public virtual int uspRemoveCourse(string pEmail, string pCourseDscpt)
         {
             var pEmailParameter = pEmail != null ?
                 new ObjectParameter("pEmail", pEmail) :
@@ -137,11 +133,21 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pCourseDscpt", pCourseDscpt) :
                 new ObjectParameter("pCourseDscpt", typeof(string));
     
-            var pCourseNumbParameter = pCourseNumb.HasValue ?
-                new ObjectParameter("pCourseNumb", pCourseNumb) :
-                new ObjectParameter("pCourseNumb", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspRemoveCourse", pEmailParameter, pCourseDscptParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspRemoveCourse", pEmailParameter, pCourseDscptParameter, pCourseNumbParameter);
+        public virtual ObjectResult<string> uspGetAllCourses()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("uspGetAllCourses");
+        }
+    
+        public virtual ObjectResult<uspGetStudents_Result> uspGetStudents(Nullable<int> pCourseID)
+        {
+            var pCourseIDParameter = pCourseID.HasValue ?
+                new ObjectParameter("pCourseID", pCourseID) :
+                new ObjectParameter("pCourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetStudents_Result>("uspGetStudents", pCourseIDParameter);
         }
     }
 }

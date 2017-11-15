@@ -1,0 +1,42 @@
+﻿@model CSC497_Project_JagQuiz.Models.ManagementViewModel
+
+@{
+    ViewBag.Title = "CourseManagement";
+}
+
+<h2>Course Management</h2>
+
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#NewCourse">Add a New Course</a></li>
+        @{
+            foreach (string item in Model.courseManagement.courses)
+            {
+                <li><a data-toggle="tab" href="#@item"> @item</a></li>
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        <div id="NewCourse" class="tab-pane fade in active">
+            <div class="panel">
+                <div class="panel-body">
+                    @using (Html.BeginForm("AddCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {   
+                        @Html.AntiForgeryToken()
+                        @Html.Label("New Course Name: ")
+                        @Html.TextAreaFor(m => m.courseManagement.newCourse)
+                        <input type="submit" class="btn btn-default" value="AddCourse" />
+                    }
+                </div>
+            </div>
+        </div>
+        @{
+            foreach (string item in Model.courseManagement.courses)
+            {
+                <div id="@item" class="tab-pane fade">
+
+                </div>
+            }
+        }
+    </div>
+</div>

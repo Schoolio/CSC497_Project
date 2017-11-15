@@ -205,6 +205,10 @@
       <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SharedModels.cs" />
+    <Compile Include="Models\uspGetStudents_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uspGetTermsByUser_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
@@ -286,6 +290,7 @@
     <Content Include="Views\Exercise\Match.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Account\AccountOptions.cshtml" />
+    <Content Include="Views\Manage\Management.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

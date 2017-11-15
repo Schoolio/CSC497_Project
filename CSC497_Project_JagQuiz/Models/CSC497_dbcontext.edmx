@@ -8,7 +8,6 @@
         <Function Name="uspAddToCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
           <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
-          <Parameter Name="pCourseNumb" Type="int" Mode="In" />
         </Function>
         <Function Name="uspChangePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
@@ -17,8 +16,12 @@
         <Function Name="uspDeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="uspGetAllCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pAccountFK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspGetStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCourseID" Type="int" Mode="In" />
         </Function>
         <Function Name="uspGetTermsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pAccountFK" Type="int" Mode="In" />
@@ -38,7 +41,6 @@
         <Function Name="uspRemoveCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
           <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
-          <Parameter Name="pCourseNumb" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="CSC497_EntityModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -49,20 +51,19 @@
           <FunctionImport Name="uspAddToCourse">
             <Parameter Name="pEmail" Mode="In" Type="String" />
             <Parameter Name="pCourseDscpt" Mode="In" Type="String" />
-            <Parameter Name="pCourseNumb" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspChangePassword">
             <Parameter Name="pEmail" Mode="In" Type="String" />
             <Parameter Name="pNewPassword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspDeleteAccount">
-            <Parameter Name="pEmail" Mode="In" Type="String" />
+          <Parameter Name="pEmail" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="uspGetCourses" ReturnType="Collection(String)">
-            <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspGetTermsByUser" ReturnType="Collection(CSC497_EntityModel.uspGetTermsByUser_Result)">
-            <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspLogIn" ReturnType="Collection(CSC497_EntityModel.uspLogIn_Result)">
             <Parameter Name="pEmail" Mode="In" Type="String" />
@@ -79,7 +80,10 @@
           <FunctionImport Name="uspRemoveCourse">
             <Parameter Name="pEmail" Mode="In" Type="String" />
             <Parameter Name="pCourseDscpt" Mode="In" Type="String" />
-            <Parameter Name="pCourseNumb" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetAllCourses" ReturnType="Collection(String)" />
+          <FunctionImport Name="uspGetStudents" ReturnType="Collection(CSC497_EntityModel.uspGetStudents_Result)">
+          <Parameter Name="pCourseID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="uspGetTermsByUser_Result">
@@ -93,6 +97,11 @@
           <Property Type="String" Name="FirstName" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="LastName" Nullable="true" MaxLength="15" />
           <Property Type="Int32" Name="AccountType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspGetStudents_Result">
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="48" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -126,6 +135,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspRegisterUser" FunctionName="CSC497_EntityModel.Store.uspRegisterUser" />
           <FunctionImportMapping FunctionImportName="uspRemoveCourse" FunctionName="CSC497_EntityModel.Store.uspRemoveCourse" />
+          <FunctionImportMapping FunctionImportName="uspGetAllCourses" FunctionName="CSC497_EntityModel.Store.uspGetAllCourses" />
+          <FunctionImportMapping FunctionImportName="uspGetStudents" FunctionName="CSC497_EntityModel.Store.uspGetStudents">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetStudents_Result">
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
