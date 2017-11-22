@@ -31,7 +31,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCourse(ManagementViewModel model)
         {
-            //userManager.dbContext.uspAddCourse(model.courseManagement.inputCourse);
+            userManager.dbContext.uspDeleteCourse(model.courseManagement.inputCourse);
             return Redirect("Management");
         }
 
@@ -39,7 +39,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModifyCourse(ManagementViewModel model)
         {
-            userManager.dbContext.uspUpdateCourse(model.activeCourseID, model.courseManagement.inputCourse);
+            userManager.dbContext.uspUpdateCourse(model.activeCourse, model.courseManagement.inputCourse);
             return Redirect("Management");
         }
 
@@ -47,7 +47,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddOneTerm(ManagementViewModel model)
         {
-            userManager.dbContext.uspAddTerm(model.termManagement.singleTerm, model.termManagement.singleDef, model.termManagement.module, model.activeCourseID);
+            userManager.dbContext.uspAddTerm(model.termManagement.singleTerm, model.termManagement.singleDef, model.termManagement.module, model.activeCourse);
             return Redirect("Management");
         }
 

@@ -8,36 +8,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">Account Information</div>
-                <div class="panel-body">
-                    <div>
-                        @Html.LabelFor(m => m.appUser.JagNumber, "JagNumber: ")
-                        @Html.DisplayFor(m => m.appUser.JagNumber)
-                    </div>
-                    <div>
-                        @Html.LabelFor(m => m.appUser.Email, "Email: ")
-                        @Html.DisplayFor(m => m.appUser.Email)
-                    </div>
-                    <div>
-                        @Html.LabelFor(m => m.appUser.FirstName, "First Name: ")
-                        @Html.DisplayFor(m => m.appUser.FirstName)
-                    </div>
-                    <div>
-                        @Html.LabelFor(m => m.appUser.LastName, "Last Name: ")
-                        @Html.DisplayFor(m => m.appUser.LastName)
-                    </div>
-                    @Html.ActionLink("Change Password", "ResetPassword", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
-                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <input class="btn btn-default" type="submit" value="LogOff" />
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">Index</div>
                 <div class="panel-body">
@@ -46,7 +17,7 @@
                         @{
                             for (int x = 0; x < Model.courses.Count; x++)
                             {
-                                <li><a data-toggle="tab" href='#@Model.courses[x]'> @Model.courses[x] </a></li>
+                                <li><a data-toggle="tab" href='#@Model.courses[x].Replace(" ", "")'> @Model.courses[x] </a></li>
                             }
                         }
                     </ul>
@@ -54,7 +25,7 @@
                         @{
                             for (int x = 0; x < Model.courses.Count; x++)
                             {
-                                <div id=@Model.courses[x] class="tab-pane fade">
+                                <div id=@Model.courses[x].Replace(" ", "") class="tab-pane fade">
                                     <p>@Model.courses[x] and some other content</p>
                                 </div>
                             }

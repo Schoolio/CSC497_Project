@@ -63,10 +63,6 @@ namespace CSC497_Project_JagQuiz.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Jag Number")]
-        public string JagNumber { get; set; }
-
-        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 

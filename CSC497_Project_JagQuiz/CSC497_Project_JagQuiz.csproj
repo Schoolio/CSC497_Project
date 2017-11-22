@@ -209,6 +209,9 @@
     <Compile Include="Models\uspGetStudents_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\uspGetTermByCourse_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uspGetTermsByUser_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>

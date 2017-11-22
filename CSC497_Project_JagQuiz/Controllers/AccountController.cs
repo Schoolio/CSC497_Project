@@ -60,7 +60,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            userManager.Register(model);
+            userManager.dbContext.uspRegisterUser(model.Email, model.Password, model.FirstName, model.LastName, 0);
             return View("Login");
             // If we got this far, something failed, redisplay form
             //return View(model);

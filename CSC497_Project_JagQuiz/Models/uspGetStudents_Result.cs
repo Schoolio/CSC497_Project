@@ -16,5 +16,6 @@ namespace CSC497_Project_JagQuiz.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
+        public Nullable<int> Average { get; set; }
     }
 }

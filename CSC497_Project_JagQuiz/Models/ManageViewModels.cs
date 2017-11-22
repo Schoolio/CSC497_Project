@@ -66,9 +66,9 @@ namespace CSC497_Project_JagQuiz.Models
     public class ManagementViewModel
     {
         public CourseManagement courseManagement { get; set; }
-        public AccountManagement accountManagement;
-        public TermManagement termManagement;
-        public int activeCourseID;
+        public AccountManagement accountManagement { get; set; }
+        public TermManagement termManagement { get; set; }
+        public string activeCourse { get; set; }
 
         public ManagementViewModel(UserManager userManager)
         {
@@ -92,11 +92,11 @@ namespace CSC497_Project_JagQuiz.Models
             public CourseManagement(UserManager userManager)
             {
                 this.courses = new List<Course>();
-                List<string> localCourseList = userManager.dbContext.uspGetCoursesAsAdmin(userManager.appUser.AccountID).ToList<string>();
+                List<string> localCourseList = userManager.dbContext.uspGetCoursesAsAdmin(userManager.appUser.Email).ToList<string>();
 
                 foreach (string item in localCourseList)
                 {
-                    this.courses.Add(new Course(item, userManager.dbContext.uspGetStudents(userManager.appUser.AccountID).ToList<uspGetStudents_Result>()));
+                    this.courses.Add(new Course(item, userManager.dbContext.uspGetStudents(item).ToList<uspGetStudents_Result>(), userManager.dbContext.uspGetTermByCourse(item).ToList<uspGetTermByCourse_Result>()));
                 }
             }
 
@@ -110,11 +110,13 @@ namespace CSC497_Project_JagQuiz.Models
             {
                 public string course;
                 public List<uspGetStudents_Result> students;
+                public List<uspGetTermByCourse_Result> terms;
 
-                public Course(string course, List<uspGetStudents_Result> students)
+                public Course(string course, List<uspGetStudents_Result> students, List<uspGetTermByCourse_Result> terms)
                 {
                     this.course = course;
                     this.students = students;
+                    this.terms = terms;
                 }
             }
         }

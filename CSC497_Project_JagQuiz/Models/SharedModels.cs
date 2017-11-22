@@ -23,7 +23,6 @@ namespace CSC497_Project_JagQuiz.Models
             this.firstName = appUser.FirstName;
             this.lastName = appUser.LastName;
             this.email = appUser.Email;
-            this.jagNumber = appUser.JagNumber;
         }
     }
 
