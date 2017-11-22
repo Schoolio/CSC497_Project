@@ -10,9 +10,9 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#NewCourse">Add a New Course</a></li>
         @{
-            foreach (string item in Model.courseManagement.courses)
+            foreach (var item in Model.courseManagement.courses)
             {
-                <li><a data-toggle="tab" href="#@item"> @item</a></li>
+                <li><a data-toggle="tab" href="#@item.course.Replace(" ", "")">@item.course</a></li>
             }
         }
     </ul>
@@ -21,22 +21,99 @@
             <div class="panel">
                 <div class="panel-body">
                     @using (Html.BeginForm("AddCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {   
+                    {
                         @Html.AntiForgeryToken()
-                        @Html.Label("New Course Name: ")
-                        @Html.TextAreaFor(m => m.courseManagement.newCourse)
-                        <input type="submit" class="btn btn-default" value="AddCourse" />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.courseManagement.inputCourse)
+                            @Html.TextAreaFor(m => m.courseManagement.inputCourse)
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="AddCourse" class="btn btn-default" />
+                        </div>
                     }
                 </div>
             </div>
         </div>
         @{
-            foreach (string item in Model.courseManagement.courses)
+            foreach (var item in Model.courseManagement.courses)
             {
-                <div id="@item" class="tab-pane fade">
+                <div id="@item.course.Replace(" ", "")" class="tab-pane fade">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Home">Home</a></li>
+                        <li><a data-toggle="tab" href="#Students">Students</a></li>
+                        <li><a data-toggle="tab" href="#Terms">Terms</a></li>
+                    </ul>
 
+                    <div class="tab-content">
+                        <div id="Home" class="tab-pane fade">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading">Course Information</div>
+                                            <div class="panel-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading"> Course Options</div>
+                                            <div class="panel-body">
+                                                @using (Html.BeginForm("ModifyCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.HiddenFor(m => m.activeCourseID, Model.activeCourseID)
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.courseManagement.modifyCourse)
+                                                        @Html.TextBoxFor(m => m.courseManagement.modifyCourse)
+                                                        <input type="submit" class="btn btn-default" value="ModifyCourse" />
+                                                    </div>
+                                                }
+                                                <br />
+                                                @using (Html.BeginForm("DeleteCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(m => m.courseManagement.inputCourse)
+                                                        @Html.TextBoxFor(m => m.courseManagement.inputCourse)
+                                                        <input type="submit" class="btn btn-default" value="DeleteCourse" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="Term" class="tab-pane fade"></div>
+                        <div id="Students" class="tab-pane fade">
+                            <div class="container">
+                                <table id="tableTerms" class="table table-striped table-bordered" cellspacing="0">
+                                    <thead>
+                                        <tr>Last Name</tr>
+                                        <tr>First Name</tr>
+                                        <tr>Average Score</tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                foreach (var local in @item.students)
+                {
+                    <tr>
+                        <td>@local.lastName</td>
+                        <td>@local.firstName</td>
+                    </tr>
+                }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
         }
+
     </div>
 </div>

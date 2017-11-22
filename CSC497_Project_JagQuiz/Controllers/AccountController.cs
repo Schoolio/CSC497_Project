@@ -113,13 +113,13 @@ namespace CSC497_Project_JagQuiz.Controllers
         // GET: /Account/AccountIndex
         public ActionResult AccountIndex()
         {
-            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.dbContext.uspGetCourses(userManager.appUser.AccountID).ToList());
+            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.dbContext.uspGetCourseByUser(userManager.appUser.AccountID).ToList());
             return View(local);
         }
 
         public ActionResult AccountOptions()
         {
-            AccountOptionsViewModel local = new AccountOptionsViewModel(userManager.appUser, userManager.dbContext.uspGetCourses(userManager.appUser.AccountID).ToList(), userManager.dbContext.uspGetAllCourses().ToList());
+            AccountOptionsViewModel local = new AccountOptionsViewModel(userManager.appUser, userManager.dbContext.uspGetCourseByUser(userManager.appUser.AccountID).ToList(), userManager.dbContext.uspGetAllCourses().ToList());
             return View(local);
         }
 

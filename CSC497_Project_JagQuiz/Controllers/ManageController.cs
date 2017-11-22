@@ -15,29 +15,39 @@ namespace CSC497_Project_JagQuiz.Controllers
     {
         public ActionResult Management()
         {
-            ManagementViewModel local = new ManagementViewModel(userManager);
-            return View("Management", local);
+            ManagementViewModel model = new ManagementViewModel(userManager);
+            return View("Management", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddCourse() 
+        public ActionResult AddCourse(ManagementViewModel model) 
         {
-            
+            userManager.dbContext.uspAddCourse(userManager.appUser.AccountID, model.courseManagement.inputCourse);
             return Redirect("Management");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteCourse()
+        public ActionResult DeleteCourse(ManagementViewModel model)
         {
+            //userManager.dbContext.uspAddCourse(model.courseManagement.inputCourse);
             return Redirect("Management");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddTerms()
+        public ActionResult ModifyCourse(ManagementViewModel model)
         {
+            userManager.dbContext.uspUpdateCourse(model.activeCourseID, model.courseManagement.inputCourse);
+            return Redirect("Management");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOneTerm(ManagementViewModel model)
+        {
+            userManager.dbContext.uspAddTerm(model.termManagement.singleTerm, model.termManagement.singleDef, model.termManagement.module, model.activeCourseID);
             return Redirect("Management");
         }
 
@@ -52,6 +62,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModifyTerm()
         {
+            //userManager.dbContext.uspUpdateTerm()
             return Redirect("Management");
         }
 

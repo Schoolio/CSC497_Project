@@ -65,24 +65,57 @@ namespace CSC497_Project_JagQuiz.Models
 
     public class ManagementViewModel
     {
-        public CourseManagement courseManagement;
+        public CourseManagement courseManagement { get; set; }
         public AccountManagement accountManagement;
+        public TermManagement termManagement;
+        public int activeCourseID;
 
         public ManagementViewModel(UserManager userManager)
         {
-            this.courseManagement = new CourseManagement(userManager.dbContext.uspGetCourses(userManager.appUser.AccountID).ToList<string>(), userManager.dbContext.uspGetStudents(userManager.appUser.AccountID).ToList<uspGetStudents_Result>());
+            this.courseManagement = new CourseManagement(userManager);
             this.accountManagement = new AccountManagement();
+            this.termManagement = new TermManagement();
+        }
+
+        public ManagementViewModel()
+        {
+            this.courseManagement = new CourseManagement();
+            this.accountManagement = new AccountManagement();
+            this.termManagement = new TermManagement();
         }
         public class CourseManagement
         {
-            public List<string> courses;
-            public List<uspGetStudents_Result> students;
-            public string newCourse { get; set; }
+            public List<Course> courses;
+            public string inputCourse { get; set; }
+            public string modifyCourse { get; set; }
 
-            public CourseManagement(List<string> courses, List<uspGetStudents_Result> students)
+            public CourseManagement(UserManager userManager)
             {
-                this.courses = courses;
-                this.students = students;
+                this.courses = new List<Course>();
+                List<string> localCourseList = userManager.dbContext.uspGetCoursesAsAdmin(userManager.appUser.AccountID).ToList<string>();
+
+                foreach (string item in localCourseList)
+                {
+                    this.courses.Add(new Course(item, userManager.dbContext.uspGetStudents(userManager.appUser.AccountID).ToList<uspGetStudents_Result>()));
+                }
+            }
+
+            public CourseManagement()
+            {
+                this.inputCourse = string.Empty;
+
+            }
+
+            public class Course
+            {
+                public string course;
+                public List<uspGetStudents_Result> students;
+
+                public Course(string course, List<uspGetStudents_Result> students)
+                {
+                    this.course = course;
+                    this.students = students;
+                }
             }
         }
 
@@ -94,6 +127,13 @@ namespace CSC497_Project_JagQuiz.Models
             {
                 this.searchParam = "";
             }
+        }
+
+        public class TermManagement
+        {
+            public string singleTerm;
+            public string singleDef;
+            public string module;
         }
     }
 }

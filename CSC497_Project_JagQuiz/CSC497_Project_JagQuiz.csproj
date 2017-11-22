@@ -212,6 +212,9 @@
     <Compile Include="Models\uspGetTermsByUser_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\uspGetTerm_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uspLogIn_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>

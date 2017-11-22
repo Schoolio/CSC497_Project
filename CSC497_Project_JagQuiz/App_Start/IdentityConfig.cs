@@ -101,21 +101,6 @@ namespace CSC497_Project_JagQuiz
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        public List<string> getCourses()
-        {
-            //List<string> output = new List<string>();
-            //ObjectResult<string> data = dbContext.uspGetCourses(appUser.AccountID);
-            
-            //foreach (string result in data)
-            //{
-            //    output.Add(result);
-            //}
-
-            //return output;
-
-            return dbContext.uspGetCourses(appUser.AccountID).ToList();
-        }
-
         public List<string> getAllCourses()
         {
             List<string> output = new List<string>();

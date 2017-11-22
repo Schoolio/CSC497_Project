@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CSC497_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="uspAddCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pAccountID" Type="int" Mode="In" />
+          <Parameter Name="pCourse" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspAddTerm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pTerm" Type="nvarchar" Mode="In" />
+          <Parameter Name="pDef" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="pModule" Type="nvarchar" Mode="In" />
+          <Parameter Name="pCourseDescript" Type="int" Mode="In" />
+        </Function>
         <Function Name="uspAddToCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
           <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
@@ -16,12 +26,25 @@
         <Function Name="uspDeleteAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="uspDeleteCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pCourseDescript" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspDeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pJagNumber" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="uspGetAllCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="uspGetCourses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="uspGetCourseByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pAccountFK" Type="int" Mode="In" />
         </Function>
+        <Function Name="uspGetCoursesAsAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pAccountFK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspGetCouseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pCourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspGetTerm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pTerm" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="uspGetTermsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pAccountFK" Type="int" Mode="In" />
@@ -41,6 +64,15 @@
         <Function Name="uspRemoveCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pEmail" Type="nvarchar" Mode="In" />
           <Parameter Name="pCourseDscpt" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspUpdateCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pOldCourse" Type="int" Mode="In" />
+          <Parameter Name="pNewDescript" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="uspUpdateTerm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pTermID" Type="int" Mode="In" />
+          <Parameter Name="pTerm" Type="nvarchar" Mode="In" />
+          <Parameter Name="pDef" Type="nvarchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="CSC497_EntityModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -85,6 +117,41 @@
           <FunctionImport Name="uspGetStudents" ReturnType="Collection(CSC497_EntityModel.uspGetStudents_Result)">
           <Parameter Name="pCourseID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="uspAddCourse">
+            <Parameter Name="pAccountID" Mode="In" Type="Int32" />
+            <Parameter Name="pCourse" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspAddTerm">
+            <Parameter Name="pTerm" Mode="In" Type="String" />
+            <Parameter Name="pDef" Mode="In" Type="String" />
+            <Parameter Name="pModule" Mode="In" Type="String" />
+            <Parameter Name="pCourseDescript" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteCourse">
+          <Parameter Name="pCourseDescript" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspDeleteUser">
+          <Parameter Name="pJagNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetCourseByUser" ReturnType="Collection(String)">
+          <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetCouseAll" ReturnType="Collection(String)" />
+          <FunctionImport Name="uspGetTerm" ReturnType="Collection(CSC497_EntityModel.uspGetTerm_Result)">
+          <Parameter Name="pTerm" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspUpdateCourse">
+            <Parameter Name="pOldCourse" Mode="In" Type="Int32" />
+            <Parameter Name="pNewDescript" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspUpdateTerm">
+            <Parameter Name="pTermID" Mode="In" Type="Int32" />
+            <Parameter Name="pTerm" Mode="In" Type="String" />
+            <Parameter Name="pDef" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetCoursesAsAdmin" ReturnType="Collection(String)">
+          <Parameter Name="pAccountFK" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="uspGetTermsByUser_Result">
           <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
@@ -103,6 +170,10 @@
           <Property Type="String" Name="lastName" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="email" Nullable="true" MaxLength="48" />
         </ComplexType>
+        <ComplexType Name="uspGetTerm_Result">
+          <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Def" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -112,7 +183,6 @@
           <FunctionImportMapping FunctionImportName="uspAddToCourse" FunctionName="CSC497_EntityModel.Store.uspAddToCourse" />
           <FunctionImportMapping FunctionImportName="uspChangePassword" FunctionName="CSC497_EntityModel.Store.uspChangePassword" />
           <FunctionImportMapping FunctionImportName="uspDeleteAccount" FunctionName="CSC497_EntityModel.Store.uspDeleteAccount" />
-          <FunctionImportMapping FunctionImportName="uspGetCourses" FunctionName="CSC497_EntityModel.Store.uspGetCourses" />
           <FunctionImportMapping FunctionImportName="uspGetTermsByUser" FunctionName="CSC497_EntityModel.Store.uspGetTermsByUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermsByUser_Result">
@@ -145,6 +215,23 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspAddCourse" FunctionName="CSC497_EntityModel.Store.uspAddCourse" />
+          <FunctionImportMapping FunctionImportName="uspAddTerm" FunctionName="CSC497_EntityModel.Store.uspAddTerm" />
+          <FunctionImportMapping FunctionImportName="uspDeleteCourse" FunctionName="CSC497_EntityModel.Store.uspDeleteCourse" />
+          <FunctionImportMapping FunctionImportName="uspDeleteUser" FunctionName="CSC497_EntityModel.Store.uspDeleteUser" />
+          <FunctionImportMapping FunctionImportName="uspGetCourseByUser" FunctionName="CSC497_EntityModel.Store.uspGetCourseByUser" />
+          <FunctionImportMapping FunctionImportName="uspGetCouseAll" FunctionName="CSC497_EntityModel.Store.uspGetCouseAll" />
+          <FunctionImportMapping FunctionImportName="uspGetTerm" FunctionName="CSC497_EntityModel.Store.uspGetTerm">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTerm_Result">
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Def" ColumnName="Def" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspUpdateCourse" FunctionName="CSC497_EntityModel.Store.uspUpdateCourse" />
+          <FunctionImportMapping FunctionImportName="uspUpdateTerm" FunctionName="CSC497_EntityModel.Store.uspUpdateTerm" />
+          <FunctionImportMapping FunctionImportName="uspGetCoursesAsAdmin" FunctionName="CSC497_EntityModel.Store.uspGetCoursesAsAdmin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

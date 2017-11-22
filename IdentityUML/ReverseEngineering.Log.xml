@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2017-10-08T16:06:53" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Medium" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Admin' -  (Class)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Admin::Admin' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Medium" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager' -  (Class)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::_db' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::ActiveUserState' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::ApplicationUserManager' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::AuthenticationManager' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Create' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Dispose' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Dispose::disposing' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Disposed' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::EmailTool' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::IdentitySignIn' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::IdentitySignIn::appUserState' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::IdentitySignOut' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::PopulateModel‎&lt;T‎&gt;' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Register' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::Register::model' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::SignIn' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::SignIn::model' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::SignOut' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager::SignOut::input' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Medium" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState' -  (Class)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::AppUserState' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::BuildAccount' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::BuildAccount::input' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::Deserialize' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::Deserialize::input' -  (Parameter)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::FirstName' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::isEmpty' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::LastName' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::Serialize' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::toAccountIndexModel' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::UserId' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::AppUserState::UserName' -  (Property)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Medium" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::EmailService' -  (Class)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::EmailService::EmailService' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models::AccountIndexViewModel' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models::CSC497_Account_Entity' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models::LoginViewModel' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models::RegisterViewModel' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Models::uspLogIn_Result' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Medium" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Student' -  (Class)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::CSC497_Project_JagQuiz::Student::Student' -  (Operation)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::Microsoft' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::Microsoft::Owin' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::Microsoft::Owin::Security' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::Microsoft::Owin::Security::IAuthenticationManager' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::System' -  (Package)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'IdentityUML::System::IDisposable' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'T' -  (UndefinedType)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: IdentityUML::CSC497_Project_JagQuiz::Student to IdentityUML::CSC497_Project_JagQuiz::AppUserState (Generalization)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: IdentityUML::CSC497_Project_JagQuiz::Admin to IdentityUML::CSC497_Project_JagQuiz::AppUserState (Generalization)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager to IdentityUML::System::IDisposable (InterfaceRealization)" />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="High" Text="(5) type(s) fully reverse engineered." />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="High" Text="(7) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2017-10-08T16:06:55" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+</Log>

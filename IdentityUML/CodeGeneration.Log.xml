@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/CodeGenLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="High" Text="Code generation or text transformation started." />
+  <Error Timestamp="2017-10-08T16:14:45" Importance="High" Text="No templates were found to process.  Configure templates by choosing 'Configure Default Code Generation Settings...' from the 'Architecture' menu, or change the selection for which code generation is launched." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="Diagnostic" Text="The selection included 9 elements which were not bound to a template." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="Diagnostic" Text="'IdentityUML::CSC497_Project_JagQuiz::' -  (Association): no bound template." />
+  <Warning Timestamp="2017-10-08T16:14:45" Importance="Medium" Text="'IdentityUML::CSC497_Project_JagQuiz::AppUserState' -  (Class): no bound template." />
+  <Warning Timestamp="2017-10-08T16:14:45" Importance="Medium" Text="'IdentityUML::CSC497_Project_JagQuiz::ApplicationUserManager' -  (Class): no bound template." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="Diagnostic" Text="'ef8d7b35-0a68-4718-aba6-354caed80056' -  (Generalization): no bound template." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="Diagnostic" Text="'cce7b698-8abb-493c-9b72-75aab0fc345b' -  (Generalization): no bound template." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="Diagnostic" Text="'IdentityUML::CSC497_Project_JagQuiz::' -  (Association): no bound template." />
+  <Warning Timestamp="2017-10-08T16:14:45" Importance="Medium" Text="'IdentityUML::CSC497_Project_JagQuiz::EmailService' -  (Class): no bound template." />
+  <Warning Timestamp="2017-10-08T16:14:45" Importance="Medium" Text="'IdentityUML::CSC497_Project_JagQuiz::Student' -  (Class): no bound template." />
+  <Warning Timestamp="2017-10-08T16:14:45" Importance="Medium" Text="'IdentityUML::CSC497_Project_JagQuiz::Admin' -  (Class): no bound template." />
+  <Message Timestamp="2017-10-08T16:14:45" Importance="High" Text="Code generation complete. Errors: 1. Warnings: 5." />
+</Log>
