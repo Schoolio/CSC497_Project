@@ -19,7 +19,13 @@
         <button class="btn btn-default" style="background-color:#00205B; color:white; float:left; width:25%; text-align:center; padding:10px"> @Html.ActionLink("Home", "AccountIndex", "Account", routeValues: null, htmlAttributes: new { id = "", style="color:white" }) </button>
         <button class="btn btn-default" style="background-color:#00205B; color:white; float:left; width:25%; text-align:center; padding:10px"> @Html.ActionLink("Exercises", "Index", "Exercise", routeValues: null, htmlAttributes: new { id = "", style = "color:white" }) </button>
         <button class="btn btn-default" style="background-color:#00205B; color:white; float:left; width:25%; text-align:center; padding:10px"> @Html.ActionLink("Account", "AccountOptions", "Account", routeValues: null, htmlAttributes: new { id = "", style = "color:white" }) </button>
-        <button class="btn btn-default" style="background-color:#00205B; color:white; float:left; width:25%; text-align:center; padding:10px"> @Html.ActionLink("Log Off", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "", style = "color:white" }) </button>
+        <div class="btn btn-default" style="background-color:#00205B; color:white; float:left; width:25%; text-align:center; padding:10px"> 
+            @using (@Html.BeginForm("LogOff", "Account", FormMethod.Post, htmlAttributes: new { id = "", style = "color:white" })) 
+            { 
+                    @Html.AntiForgeryToken()
+                <input class="btn btn-link" type="submit" value="Log Off" style="color:white"/>
+            }
+        </div>
     </div>
 
     <div id="Content" class="container-fluid" style="position:relative; width:100%; padding-left:25%; padding-right:25%">

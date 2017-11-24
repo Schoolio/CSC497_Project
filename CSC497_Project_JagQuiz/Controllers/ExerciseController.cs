@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CSC497_Project_JagQuiz.Models;
 
 namespace CSC497_Project_JagQuiz.Controllers
 {
@@ -18,6 +19,12 @@ namespace CSC497_Project_JagQuiz.Controllers
         public ActionResult Match()
         {
             return View();
+        }
+
+        public ActionResult MultipleChoice(string course, string module)
+        {
+            MultipleChoiceViewModel model = new MultipleChoiceViewModel(userManager.dbContext,course, module);
+            return View("MultipleChoice", model);
         }
     }
 }

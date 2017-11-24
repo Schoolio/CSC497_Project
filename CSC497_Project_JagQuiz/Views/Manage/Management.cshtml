@@ -69,10 +69,12 @@
                                                 @using (Html.BeginForm("ModifyCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                                 {
                                                     @Html.AntiForgeryToken()
-                                                    @Html.HiddenFor(m => m.activeCourse)
+                                                    @Html.HiddenFor(m => m.activeCourse, new { Value = item.course })
                                                     <div class="form-group">
                                                         @Html.LabelFor(m => m.courseManagement.modifyCourse)
+                                                        <br />
                                                         @Html.TextBoxFor(m => m.courseManagement.modifyCourse)
+                                                        <br />
                                                         <input type="submit" class="btn btn-default" value="Modify Course" />
                                                     </div>
                                                 }
@@ -81,8 +83,7 @@
                                                 {
                                                     @Html.AntiForgeryToken()
                                                     <div class="form-group">
-                                                        @Html.LabelFor(m => m.courseManagement.inputCourse)
-                                                        @Html.TextBoxFor(m => m.courseManagement.inputCourse)
+                                                        @Html.HiddenFor(m => m.activeCourse, new { Value = item.course })
                                                         <input type="submit" class="btn btn-default" value="Delete Course" />
                                                     </div>
                                                 }
@@ -106,37 +107,41 @@
                                     </thead>
                                     <tbody>
                                         @{
-                                            foreach (var local in @item.terms)
-                                            {
-                                                    <tr>
-                                                        <td>@local.Term</td>
-                                                        <td>@local.Def</td>
-                                                        <td>Place Holder</td>
-                                                        <td>@local.Average</td>
-                                                    </tr>
-                                            }
+                foreach (var local in @item.terms)
+                {
+                    <tr>
+                        <td>@local.Term</td>
+                        <td>@local.Def</td>
+                        <td>Place Holder</td>
+                        <td>@local.Average</td>
+                    </tr>
+                }
                                         }
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="container">
-                                        <div class="panel">
-                                            <div class="panel-heading">Add Terms</div>
-                                            @using (Html.BeginForm("AddOneTerm", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                    <div class="form-group">
-                                                        @Html.LabelFor(m => m.termManagement.singleTerm)
-                                                        @Html.TextBoxFor(m => m.termManagement.singleTerm)
-                                                        @Html.LabelFor(m => m.termManagement.singleDef)
-                                                        @Html.TextBoxFor(m => m.termManagement.singleDef)
-                                                        @Html.LabelFor(m => m.termManagement.module)
-                                                        @Html.TextBoxFor(m => m.termManagement.module)
-                                                        <input type="submit" class="btn btn-default" value="Add Term" />
-                                                    </div>
-                                            }
+                                <div class="panel">
+                                    <div class="panel-heading">Add Terms</div>
+                                    @using (Html.BeginForm("AddOneTerm", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.activeCourse, new { Value = item.course })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.termManagement.singleTerm)
+                                            @Html.TextBoxFor(m => m.termManagement.singleTerm)
+                                            <br />
+                                            @Html.LabelFor(m => m.termManagement.singleDef)
+                                            @Html.TextBoxFor(m => m.termManagement.singleDef)
+                                            <br />
+                                            @Html.LabelFor(m => m.termManagement.module)
+                                            @Html.TextBoxFor(m => m.termManagement.module)
+                                            <br />
+                                            <input type="submit" class="btn btn-default" value="Add Term" />
                                         </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div id="Students" class="tab-pane fade">
@@ -152,21 +157,21 @@
                                     </thead>
                                     <tbody>
                                         @{
-                                            foreach (var local in @item.students)
-                                            {
-                                                <tr>
-                                                    <td>@local.lastName</td>
-                                                    <td>@local.firstName</td>
-                                                    <td>@local.email</td>
-                                                    <td>@local.Average</td>
-                                                </tr>
-                                            }
+                foreach (var local in @item.students)
+                {
+                    <tr>
+                        <td>@local.lastName</td>
+                        <td>@local.firstName</td>
+                        <td>@local.email</td>
+                        <td>@local.Average</td>
+                    </tr>
+                }
                                         }
                                     </tbody>
                                 </table>
                             </div>
 
-                            
+
                         </div>
                     </div>
                 </div>

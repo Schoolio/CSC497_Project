@@ -86,7 +86,9 @@ namespace CSC497_Project_JagQuiz.Models
         public class CourseManagement
         {
             public List<Course> courses;
+            [Display(Name = "Input a Course")]
             public string inputCourse { get; set; }
+            [Display(Name = "Change Course Name")]
             public string modifyCourse { get; set; }
 
             public CourseManagement(UserManager userManager)
@@ -133,9 +135,12 @@ namespace CSC497_Project_JagQuiz.Models
 
         public class TermManagement
         {
-            public string singleTerm;
-            public string singleDef;
-            public string module;
+            [Display(Name = "Term")]
+            public string singleTerm { get; set; }
+            [Display(Name = "Definition")]
+            public string singleDef { get; set; }
+            [Display(Name = "Module")]
+            public string module { get; set; }
         }
     }
 }

@@ -12,12 +12,14 @@ namespace CSC497_Project_JagQuiz.Models
 
     public class AccountInformation
     {
-        public string firstName;
-        public string lastName;
-        public string email;
-        public string jagNumber;
-        public string accountType;
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public string accountType { get; set; }
+        public AccountInformation()
+        {
 
+        }
         public AccountInformation(AppUser appUser)
         {
             this.firstName = appUser.FirstName;

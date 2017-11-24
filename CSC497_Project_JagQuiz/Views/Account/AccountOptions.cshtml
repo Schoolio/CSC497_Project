@@ -5,7 +5,7 @@
 
 <h2>AccountOptions</h2>
 
-<div class="container">
+<div class="container-fluid">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#AccountInfo">Account Info</a></li>
         <li><a data-toggle="tab" href="#CourseManagement">Course Management</a></li>
@@ -13,82 +13,83 @@
     </ul>
     <div class="tab-content">
         <div id="AccountInfo" class="tab-pane fade in active">
-            <div>
-                @Html.LabelFor(m => m.accountInformation.jagNumber, "JagNumber: ")
-                @Html.DisplayFor(m => m.accountInformation.jagNumber)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.accountInformation.email, "Email: ")
-                @Html.DisplayFor(m => m.accountInformation.email)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.accountInformation.firstName, "First Name: ")
-                @Html.DisplayFor(m => m.accountInformation.firstName)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.accountInformation.lastName, "Last Name: ")
-                @Html.DisplayFor(m => m.accountInformation.lastName)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.accountInformation.accountType, "Account Type: ")
-                @Html.DisplayFor(m => m.accountInformation.accountType)
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div>
+                        @Html.LabelFor(m => m.accountInformation.email, "Email: ")
+                        @Html.DisplayFor(m => m.accountInformation.email)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.accountInformation.firstName, "First Name: ")
+                        @Html.DisplayFor(m => m.accountInformation.firstName)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.accountInformation.lastName, "Last Name: ")
+                        @Html.DisplayFor(m => m.accountInformation.lastName)
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.accountInformation.accountType, "Account Type: ")
+                        @Html.DisplayFor(m => m.accountInformation.accountType)
+                    </div>
+                </div>
             </div>
         </div>
         <div id="CourseManagement" class="tab-pane fade">
-            <table>
-                <tr>
-                    <th>Course</th>
-                    <th>Temp</th>
-                </tr>
-                @foreach (string item in Model.courseManagement.courses)
-                {
-                    <tr>
-                        <td>@item</td>
-                    </tr>
-                }
-            </table>
-            @using (Html.BeginForm("RegisterCourse", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                <div class="dropdown">
-                    <select class="dropdown-content">
-                        @foreach (string item in Model.courseManagement.allCourses)
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>Enrolled Courses</h4>
+                    <table>
+                        <tr>
+                            <th>Course</th>
+                        </tr>
+                        @foreach (string item in Model.courseManagement.courses)
                         {
-                            <option value=@item>@item</option>
+                            <tr>
+                                <td>@item</td>
+                            </tr>
                         }
-                    </select>
+                    </table>
+                    <br />
+                    <h4></h4>>Register A Course</h4>
+                    @using (Html.BeginForm("RegisterCourse", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.Label("Select a Course: ")
+                            @Html.DropDownListFor(m => m.courseManagement.selectedCourse, new SelectList(Model.courseManagement.allCourses))
+                            <br />
+                            @Html.Label("Course Password: ", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.courseManagement.coursePassword, new { @class = "form-control" })
+                            <input type="submit" class="btn btn-default" value="Register Course" />
+                        </div>
+                    }
                 </div>
-                <div class="form-group">
-                    @Html.Label("Course Password: ", new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.courseManagement.coursePassword, new { @class = "form-control" })
-                    </div>
-                </div>
-                <input type="submit" class="btn btn-default" value="RegisterCourse" />
-            }
+            </div>
         </div>
         <div id="PasswordManagement" class="tab-pane fade">
-            @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="form-group">
-                    @Html.Label("New Password: ", new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.passwordConfirmation.Password, new { @class = "form-control" })
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.Label("New Password: ", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.passwordConfirmation.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Confirm Password: ", new { @class = "col-md-2 control-label" })
+                            @Html.TextBoxFor(m => m.passwordConfirmation.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-default" value="ChangePassword" />
+                        </div>
+                    }
                 </div>
-                <div class="form-group">
-                    @Html.Label("Confirm Password: ", new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.passwordConfirmation.ConfirmPassword, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-default" value="ChangePassword" />
-                    </div>
-                </div>
-            }
+            </div>
         </div>
     </div>
-</div>
+
+        </div>
 

@@ -11,12 +11,9 @@ namespace CSC497_Project_JagQuiz.Models
 {
     using System;
     
-    public partial class uspLogIn_Result
+    public partial class uspGetTermsByModule_Result
     {
-        public int AccountID { get; set; }
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<int> AccountType { get; set; }
+        public string Term { get; set; }
+        public string Def { get; set; }
     }
 }

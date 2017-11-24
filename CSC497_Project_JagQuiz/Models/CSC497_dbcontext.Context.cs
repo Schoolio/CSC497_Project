@@ -28,11 +28,11 @@ namespace CSC497_Project_JagQuiz.Models
         }
     
     
-        public virtual int uspAddCourse(Nullable<int> pAccountEmail, string pCourse)
+        public virtual int uspAddCourse(string pAccountEmail, string pCourse)
         {
-            var pAccountEmailParameter = pAccountEmail.HasValue ?
+            var pAccountEmailParameter = pAccountEmail != null ?
                 new ObjectParameter("pAccountEmail", pAccountEmail) :
-                new ObjectParameter("pAccountEmail", typeof(int));
+                new ObjectParameter("pAccountEmail", typeof(string));
     
             var pCourseParameter = pCourse != null ?
                 new ObjectParameter("pCourse", pCourse) :
@@ -179,19 +179,6 @@ namespace CSC497_Project_JagQuiz.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermsByUser_Result>("uspGetTermsByUser", pEmailParameter);
         }
     
-        public virtual ObjectResult<uspLogIn_Result> uspLogIn(string pEmail, string pPassword)
-        {
-            var pEmailParameter = pEmail != null ?
-                new ObjectParameter("pEmail", pEmail) :
-                new ObjectParameter("pEmail", typeof(string));
-    
-            var pPasswordParameter = pPassword != null ?
-                new ObjectParameter("pPassword", pPassword) :
-                new ObjectParameter("pPassword", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspLogIn_Result>("uspLogIn", pEmailParameter, pPasswordParameter);
-        }
-    
         public virtual ObjectResult<string> uspRegisterUser(string pEmail, string pPasswordHash, string pFirstName, string pLastName, Nullable<int> pAccountType)
         {
             var pEmailParameter = pEmail != null ?
@@ -254,6 +241,32 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pDef", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspUpdateTerm", pTermParameter, pDefParameter);
+        }
+    
+        public virtual ObjectResult<uspLogIn_Result> uspLogIn(string pEmail, string pPassword)
+        {
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            var pPasswordParameter = pPassword != null ?
+                new ObjectParameter("pPassword", pPassword) :
+                new ObjectParameter("pPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspLogIn_Result>("uspLogIn", pEmailParameter, pPasswordParameter);
+        }
+    
+        public virtual ObjectResult<uspGetTermsByModule_Result> uspGetTermsByModule(string pCourse, string pModule)
+        {
+            var pCourseParameter = pCourse != null ?
+                new ObjectParameter("pCourse", pCourse) :
+                new ObjectParameter("pCourse", typeof(string));
+    
+            var pModuleParameter = pModule != null ?
+                new ObjectParameter("pModule", pModule) :
+                new ObjectParameter("pModule", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermsByModule_Result>("uspGetTermsByModule", pCourseParameter, pModuleParameter);
         }
     }
 }

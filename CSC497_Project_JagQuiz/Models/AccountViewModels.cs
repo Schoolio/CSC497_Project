@@ -18,24 +18,32 @@ namespace CSC497_Project_JagQuiz.Models
 
     public class AccountOptionsViewModel
     {
-        public AccountInformation accountInformation;
-        public CourseManagement courseManagement = new CourseManagement();
-        public PasswordConfirmation passwordConfirmation;
-        public AccountOptionsViewModel()
-        {
-        }
+        public AccountInformation accountInformation { get; set; }
+        public AccountCourseManagement courseManagement { get; set; }
+        public PasswordConfirmation passwordConfirmation { get; set; }
         public AccountOptionsViewModel(AppUser appUser, List<string> courses, List<string> allCourses)
         {
             this.accountInformation = new AccountInformation(appUser);
+            this.courseManagement = new AccountCourseManagement();
+            this.passwordConfirmation = new PasswordConfirmation();
             this.courseManagement.allCourses = allCourses;
             this.courseManagement.courses = courses;
          }
 
-        public class CourseManagement
+        public AccountOptionsViewModel()
+        {
+            this.accountInformation = new AccountInformation();
+            this.courseManagement = new AccountCourseManagement();
+            this.passwordConfirmation = new PasswordConfirmation();
+        }
+
+        public class AccountCourseManagement
         {
             public List<string> courses { get; set; }
             public List<string> allCourses { get; set; }
             public string coursePassword { get; set; }
+            public string selectedCourse { get; set; }
+
         }
     }
 

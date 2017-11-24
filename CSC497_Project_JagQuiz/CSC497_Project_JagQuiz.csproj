@@ -204,12 +204,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSC497_dbcontext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ExerciseViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\uspGetStudents_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\uspGetTermByCourse_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\uspGetTermsByModule_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\uspGetTermsByUser_Result.cs">

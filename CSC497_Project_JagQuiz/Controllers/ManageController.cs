@@ -23,7 +23,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddCourse(ManagementViewModel model) 
         {
-            userManager.dbContext.uspAddCourse(userManager.appUser.AccountID, model.courseManagement.inputCourse);
+            userManager.dbContext.uspAddCourse(userManager.appUser.Email, model.courseManagement.inputCourse);
             return Redirect("Management");
         }
 
@@ -39,7 +39,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ModifyCourse(ManagementViewModel model)
         {
-            userManager.dbContext.uspUpdateCourse(model.activeCourse, model.courseManagement.inputCourse);
+            userManager.dbContext.uspUpdateCourse(model.activeCourse, model.courseManagement.modifyCourse);
             return Redirect("Management");
         }
 

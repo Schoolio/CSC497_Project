@@ -60,42 +60,10 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            userManager.dbContext.uspRegisterUser(model.Email, model.Password, model.FirstName, model.LastName, 0);
+            string test = userManager.dbContext.uspRegisterUser(model.Email, model.Password, model.FirstName, model.LastName, 0).First();
             return View("Login");
             // If we got this far, something failed, redisplay form
             //return View(model);
-        }
-
-        //
-        // GET: /Account/ForgotPassword
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
-        }
-
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
-        {
-            return View();
         }
 
         //
@@ -126,12 +94,13 @@ namespace CSC497_Project_JagQuiz.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(AccountOptionsViewModel model)
         {
-            userManager.changePassword(model);
+            userManager.dbContext.uspChangePassword(model.accountInformation.email, model.passwordConfirmation.ConfirmPassword);
             return Redirect("AccountOptions");
         }
 
-        public ActionResult RegisterCourse(string course, string pass)
+        public ActionResult RegisterCourse(AccountOptionsViewModel model)
         {
+            userManager.dbContext.uspAddToCourse(userManager.appUser.Email, model.courseManagement.selectedCourse);
             return Redirect("AccountOptions");
         }
 
