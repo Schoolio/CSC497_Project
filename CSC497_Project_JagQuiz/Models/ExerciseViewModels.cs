@@ -12,6 +12,9 @@ namespace CSC497_Project_JagQuiz.Models
     public class MultipleChoiceViewModel
     {
         public List<MCQuestion> questions { get; set; }
+        public string answer { get; set; }
+        public string activeCourse { get; set; }
+        public string module { get; set; }
 
         public MultipleChoiceViewModel(Project_CSC497Entities db, string course, string module)
         {

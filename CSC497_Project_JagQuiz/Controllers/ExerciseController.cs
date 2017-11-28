@@ -24,7 +24,17 @@ namespace CSC497_Project_JagQuiz.Controllers
         public ActionResult MultipleChoice(string course, string module)
         {
             MultipleChoiceViewModel model = new MultipleChoiceViewModel(userManager.dbContext,course, module);
-            return View("MultipleChoice", model);
+            return View("MultipleChoiceQuestion", model);
+        }
+
+        public ActionResult GetQuestion()
+        {
+            return null;
+        }
+
+        public ActionResult Answer(MultipleChoiceViewModel model)
+        {
+            return null;
         }
     }
 }

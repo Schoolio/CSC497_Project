@@ -292,6 +292,7 @@
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Account\AccountOptions.cshtml" />
     <Content Include="Views\Manage\Management.cshtml" />
+    <Content Include="Views\Exercise\MultipleChoiceQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

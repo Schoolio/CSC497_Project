@@ -37,7 +37,7 @@ namespace CSC497_Project_JagQuiz.Controllers
             if (userManager.ValidateUser(model))
             {
                 userManager.IdentitySignIn(model);
-               return Redirect("AccountIndex");
+               return Redirect("Account/AccountIndex");
             }
             else
             {

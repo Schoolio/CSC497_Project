@@ -51,6 +51,11 @@ namespace CSC497_Project_JagQuiz.Controllers
             return Redirect("Management");
         }
 
+        public ActionResult AddTerms(HttpPostedFile FileUpload)
+        {
+            return null;
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteTerms(ManagementViewModel model)
@@ -65,8 +70,6 @@ namespace CSC497_Project_JagQuiz.Controllers
         {
             //userManager.dbContext.uspUpdateTerm()
             return Redirect("Management");
-        }
-
-        
+        }        
     }
 }

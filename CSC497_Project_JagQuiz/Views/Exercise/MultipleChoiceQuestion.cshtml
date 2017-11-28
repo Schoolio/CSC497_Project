@@ -1,0 +1,26 @@
+﻿@model CSC497_Project_JagQuiz.Models.MultipleChoiceViewModel
+
+@{
+    ViewBag.Title = "MultipleChoiceQuestion";
+}
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="page-header">
+            <h3>@Model.activeCourse</h3>
+            <h4>@Model.module</h4>
+        </div>
+        <div class="panel-body">
+            <p>@Model.questions[0].question</p>
+            @using (Html.BeginForm("Answer", "Exercise", FormMethod.Post,  new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.RadioButtonFor(m => m.questions[0].answer1, @Model.questions[0].answer1)
+                @Html.RadioButtonFor(m => m.questions[0].answer2, @Model.questions[0].answer2)
+                @Html.RadioButtonFor(m => m.questions[0].answer3, @Model.questions[0].answer3)
+                @Html.RadioButtonFor(m => m.questions[0].correctAnswer, @Model.questions[0].correctAnswer)
+                <input type="submit" value="Submit" class="btn btn-default" />
+            }
+        </div>
+    </div>
+</div>
+
