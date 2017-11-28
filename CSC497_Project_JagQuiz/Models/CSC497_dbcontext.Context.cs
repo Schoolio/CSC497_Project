@@ -161,15 +161,6 @@ namespace CSC497_Project_JagQuiz.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTerm_Result>("uspGetTerm", pTermParameter);
         }
     
-        public virtual ObjectResult<uspGetTermByCourse_Result> uspGetTermByCourse(string pCourse)
-        {
-            var pCourseParameter = pCourse != null ?
-                new ObjectParameter("pCourse", pCourse) :
-                new ObjectParameter("pCourse", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermByCourse_Result>("uspGetTermByCourse", pCourseParameter);
-        }
-    
         public virtual ObjectResult<uspGetTermsByUser_Result> uspGetTermsByUser(string pEmail)
         {
             var pEmailParameter = pEmail != null ?
@@ -267,6 +258,15 @@ namespace CSC497_Project_JagQuiz.Models
                 new ObjectParameter("pModule", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermsByModule_Result>("uspGetTermsByModule", pCourseParameter, pModuleParameter);
+        }
+    
+        public virtual ObjectResult<uspGetTermByCourse_Result> uspGetTermByCourse(string pCourse)
+        {
+            var pCourseParameter = pCourse != null ?
+                new ObjectParameter("pCourse", pCourse) :
+                new ObjectParameter("pCourse", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermByCourse_Result>("uspGetTermByCourse", pCourseParameter);
         }
     }
 }

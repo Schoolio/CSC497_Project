@@ -1,19 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Data.Entity.Core.Objects;
+using System;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
+using System.Web;
+using System.Net.Mail;
 
 namespace CSC497_Project_JagQuiz.Models
 {
 
     public class AccountIndexViewModel
     {
-        public List<string> courses { get; set; }
-        public AppUser appUser { get; set; }
-        public AccountIndexViewModel(AppUser appUser, List<string> courses)
+        public List<Course> courses { get; set; }
+        public AccountIndexViewModel(List<string> inputCourses, UserManager userManager)
         {
-            this.appUser = appUser;
-            this.courses = courses;
-        }
+            this.courses = new List<Course>();
 
+            foreach (string item in inputCourses)
+            {
+                this.courses.Add(new Course(item, userManager.dbContext.uspGetTermsByUser(userManager.appUser.Email).ToList<uspGetTermsByUser_Result>().FindAll(p => p.CourseDscpt == item)));
+            }
+        }
     }
 
     public class AccountOptionsViewModel

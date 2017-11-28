@@ -11,12 +11,11 @@ namespace CSC497_Project_JagQuiz.Models
 {
     using System;
     
-    public partial class uspGetTermsByUser_Result
+    public partial class uspGetTermByCourse_Result
     {
         public string Term { get; set; }
-        public Nullable<int> Score { get; set; }
         public string Def { get; set; }
-        public string CourseDscpt { get; set; }
         public string Module { get; set; }
+        public Nullable<int> Average { get; set; }
     }
 }

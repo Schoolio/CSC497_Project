@@ -126,9 +126,6 @@
           <FunctionImport Name="uspGetTerm" ReturnType="Collection(CSC497_EntityModel.uspGetTerm_Result)">
           <Parameter Name="pTerm" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="uspGetTermByCourse" ReturnType="Collection(CSC497_EntityModel.uspGetTermByCourse_Result)">
-          <Parameter Name="pCourse" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="uspGetTermsByUser" ReturnType="Collection(CSC497_EntityModel.uspGetTermsByUser_Result)">
           <Parameter Name="pEmail" Mode="In" Type="String" />
           </FunctionImport>
@@ -159,6 +156,9 @@
             <Parameter Name="pCourse" Mode="In" Type="String" />
             <Parameter Name="pModule" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="uspGetTermByCourse" ReturnType="Collection(CSC497_EntityModel.uspGetTermByCourse_Result)">
+          <Parameter Name="pCourse" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="uspGetStudents_Result">
           <Property Type="String" Name="firstName" Nullable="true" MaxLength="15" />
@@ -170,14 +170,12 @@
           <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Def" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="uspGetTermByCourse_Result">
-          <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Def" Nullable="true" />
-          <Property Type="Int32" Name="Average" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="uspGetTermsByUser_Result">
           <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="Score" Nullable="true" />
+          <Property Type="String" Name="Def" Nullable="true" />
+          <Property Type="String" Name="CourseDscpt" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Module" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="uspLogIn_Result">
           <Property Type="Int32" Name="AccountID" Nullable="false" />
@@ -189,6 +187,12 @@
         <ComplexType Name="uspGetTermsByModule_Result">
           <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Def" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="uspGetTermByCourse_Result">
+          <Property Type="String" Name="Term" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Def" Nullable="true" />
+          <Property Type="String" Name="Module" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Average" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -225,20 +229,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="uspGetTermByCourse" FunctionName="CSC497_EntityModel.Store.uspGetTermByCourse">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermByCourse_Result">
-                <ScalarProperty Name="Term" ColumnName="Term" />
-                <ScalarProperty Name="Def" ColumnName="Def" />
-                <ScalarProperty Name="Average" ColumnName="Average" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspGetTermsByUser" FunctionName="CSC497_EntityModel.Store.uspGetTermsByUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermsByUser_Result">
                 <ScalarProperty Name="Term" ColumnName="Term" />
                 <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Def" ColumnName="Def" />
+                <ScalarProperty Name="CourseDscpt" ColumnName="CourseDscpt" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -262,6 +260,16 @@
               <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermsByModule_Result">
                 <ScalarProperty Name="Term" ColumnName="Term" />
                 <ScalarProperty Name="Def" ColumnName="Def" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspGetTermByCourse" FunctionName="CSC497_EntityModel.Store.uspGetTermByCourse">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSC497_EntityModel.uspGetTermByCourse_Result">
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Def" ColumnName="Def" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -81,7 +81,7 @@ namespace CSC497_Project_JagQuiz.Controllers
         // GET: /Account/AccountIndex
         public ActionResult AccountIndex()
         {
-            AccountIndexViewModel local = new AccountIndexViewModel(userManager.appUser, userManager.dbContext.uspGetCourseByUser(userManager.appUser.AccountID).ToList());
+            AccountIndexViewModel local = new AccountIndexViewModel(userManager.dbContext.uspGetCourseByUser(userManager.appUser.AccountID).ToList(), userManager);
             return View(local);
         }
 
