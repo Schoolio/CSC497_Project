@@ -41,7 +41,9 @@
                                                 foreach(var localterm in item.terms)
                                                 {
                                                     <tr>
+                                                        <td>@localterm.module</td>
                                                         <td>@localterm.termName</td>
+                                                        <td>@localterm.definition</td>
                                                         <td>@localterm.score</td>
                                                     </tr>
                                                 }

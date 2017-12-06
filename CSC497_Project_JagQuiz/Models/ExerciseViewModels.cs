@@ -11,37 +11,39 @@ namespace CSC497_Project_JagQuiz.Models
 
     public class MultipleChoiceViewModel
     {
-        public List<MCQuestion> questions { get; set; }
-        public string answer { get; set; }
+        public MCQuestion question { get; set; }
+        public string userAnswer { get; set; }
         public string activeCourse { get; set; }
         public string module { get; set; }
+        public MultipleChoiceViewModel()
+        {
+
+        }
 
         public MultipleChoiceViewModel(Project_CSC497Entities db, string course, string module)
         {
-            List<uspGetTermsByModule_Result> local = db.uspGetTermsByModule(course, module).ToList();
-            int length = local.Count() - 1;
-            Random rand = new Random();
-            foreach (var item in local)
-            {
-                questions.Add(new MCQuestion(item.Def, item.Term, local.ElementAt(rand.Next(0, length)).Term, local.ElementAt(rand.Next(0, length)).Term, local.ElementAt(rand.Next(0, length)).Term));
-            }
+            this.activeCourse = course;
+            this.module = module;
+            this.userAnswer = "";
+            this.question = new MCQuestion(db.uspCreateMCQuestion(course, module).First());
+
         }
 
-        public struct MCQuestion{
-            public string question;
-            public string correctAnswer;
-            public string answer1;
-            public string answer2;
-            public string answer3;
 
-            public MCQuestion(string question, string correctAnswer, string answer1, string answer2, string answer3)
-            {
-                this.question = question;
-                this.correctAnswer = correctAnswer;
-                this.answer1 = answer1; 
-                this.answer2 = answer2;
-                this.answer3 = answer3;
-            }
+    }
+    public struct MCQuestion
+    {
+        public string question;
+        public string correctAnswer { get; set; }
+        public string[] answers;
+
+        public MCQuestion(uspCreateMCQuestion_Result result) : this()
+        {
+            Random rnd = new Random();
+            this.answers = new string[] { result.Answer1, result.Answer2, result.Answer3, result.Term };
+            this.correctAnswer = result.Term;
+            this.question = result.Def;
+            this.answers = this.answers.OrderBy(x => rnd.Next()).ToArray();
         }
     }
 }

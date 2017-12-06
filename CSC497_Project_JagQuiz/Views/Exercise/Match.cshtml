@@ -1,7 +1,19 @@
-﻿
+﻿@model CSC497_Project_JagQuiz.Models.AccountOptionsViewModel
+
 @{
     ViewBag.Title = "Match";
 }
 
 <h2>Match</h2>
 
+<div class="container">
+    @using (Html.BeginForm("Match", "Exercise", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Label("Select Course: ")
+        @Html.DropDownListFor(m => m.courseManagement.selectedCourse, new SelectList(Model.courseManagement.allCourses))
+        @Html.Label("Input Module: ")
+        @Html.TextAreaFor(m => m.courseManagement.module)
+        <input type="submit" value="Submit" class="btn btn-default" />
+    }
+</div>

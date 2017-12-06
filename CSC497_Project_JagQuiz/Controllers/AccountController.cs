@@ -104,6 +104,11 @@ namespace CSC497_Project_JagQuiz.Controllers
             return Redirect("AccountOptions");
         }
 
+        public ActionResult RemoveCourse(AccountOptionsViewModel model)
+        {
+            return View("AccountIndex");
+        }
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

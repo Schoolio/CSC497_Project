@@ -268,5 +268,35 @@ namespace CSC497_Project_JagQuiz.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetTermByCourse_Result>("uspGetTermByCourse", pCourseParameter);
         }
+    
+        public virtual int uspUpdateScore(string pTerm, string pEmail, Nullable<int> pValue)
+        {
+            var pTermParameter = pTerm != null ?
+                new ObjectParameter("pTerm", pTerm) :
+                new ObjectParameter("pTerm", typeof(string));
+    
+            var pEmailParameter = pEmail != null ?
+                new ObjectParameter("pEmail", pEmail) :
+                new ObjectParameter("pEmail", typeof(string));
+    
+            var pValueParameter = pValue.HasValue ?
+                new ObjectParameter("pValue", pValue) :
+                new ObjectParameter("pValue", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspUpdateScore", pTermParameter, pEmailParameter, pValueParameter);
+        }
+    
+        public virtual ObjectResult<uspCreateMCQuestion_Result> uspCreateMCQuestion(string pCourse, string pModule)
+        {
+            var pCourseParameter = pCourse != null ?
+                new ObjectParameter("pCourse", pCourse) :
+                new ObjectParameter("pCourse", typeof(string));
+    
+            var pModuleParameter = pModule != null ?
+                new ObjectParameter("pModule", pModule) :
+                new ObjectParameter("pModule", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspCreateMCQuestion_Result>("uspCreateMCQuestion", pCourseParameter, pModuleParameter);
+        }
     }
 }

@@ -9,16 +9,31 @@
         <div class="page-header">
             <h3>@Model.activeCourse</h3>
             <h4>@Model.module</h4>
+            <h4>@Model.question.correctAnswer</h4>
         </div>
         <div class="panel-body">
-            <p>@Model.questions[0].question</p>
-            @using (Html.BeginForm("Answer", "Exercise", FormMethod.Post,  new { @class = "form-horizontal", role = "form" }))
+            <p>@Model.question.question</p>
+            @using (Html.BeginForm("Answer", "Exercise", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                @Html.RadioButtonFor(m => m.questions[0].answer1, @Model.questions[0].answer1)
-                @Html.RadioButtonFor(m => m.questions[0].answer2, @Model.questions[0].answer2)
-                @Html.RadioButtonFor(m => m.questions[0].answer3, @Model.questions[0].answer3)
-                @Html.RadioButtonFor(m => m.questions[0].correctAnswer, @Model.questions[0].correctAnswer)
-                <input type="submit" value="Submit" class="btn btn-default" />
+                @Html.HiddenFor(m => m.activeCourse, new { value =  Model.activeCourse})
+                @Html.HiddenFor(m => m.module, new { value = Model.module })
+                @Html.HiddenFor(m => m.question.correctAnswer, new { value = Model.question.correctAnswer})
+                <div class="form-group">
+                    @Html.AntiForgeryToken()                    
+                    @Html.RadioButtonFor(m => m.userAnswer, @Model.question.answers[0])
+                    @Html.Label(@Model.question.answers[0])
+                    <br />
+                    @Html.RadioButtonFor(m => m.userAnswer, @Model.question.answers[1])
+                    @Html.Label(@Model.question.answers[1])
+                    <br />
+                    @Html.RadioButtonFor(m => m.userAnswer, @Model.question.answers[2])
+                    @Html.Label(@Model.question.answers[2])
+                    <br />
+                    @Html.RadioButtonFor(m => m.userAnswer, @Model.question.answers[3])
+                    @Html.Label(@Model.question.answers[3])
+                    <br />
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
             }
         </div>
     </div>

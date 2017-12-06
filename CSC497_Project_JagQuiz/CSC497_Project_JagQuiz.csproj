@@ -207,6 +207,9 @@
     <Compile Include="Models\ExerciseViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SharedModels.cs" />
+    <Compile Include="Models\uspCreateMCQuestion_Result.cs">
+      <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\uspGetStudents_Result.cs">
       <DependentUpon>CSC497_dbcontext.tt</DependentUpon>
     </Compile>

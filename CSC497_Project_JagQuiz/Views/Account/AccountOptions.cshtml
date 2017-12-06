@@ -38,14 +38,25 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h4>Enrolled Courses</h4>
-                    <table>
+                    <table class="table table-bordered table-striped">
                         <tr>
                             <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Remove Class</th>
                         </tr>
                         @foreach (string item in Model.courseManagement.courses)
                         {
                             <tr>
                                 <td>@item</td>
+                                <td>Place Holder</td>
+                                <td>
+                                    @using (@Html.BeginForm("RemoveCourse", "Manage", FormMethod.Post, htmlAttributes: new { id = "", style = "color:white" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.courseManagement.selectedCourse, new { value = item })
+                                        <input class="btn btn-link" type="submit" value="Delete" />
+                                    }
+                                </td>
                             </tr>
                         }
                     </table>

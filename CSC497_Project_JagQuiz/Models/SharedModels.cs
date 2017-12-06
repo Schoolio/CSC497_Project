@@ -49,6 +49,8 @@ namespace CSC497_Project_JagQuiz.Models
             this = new Term();
             this.termName = input.Term;
             this.score = input.Score;
+            this.module = input.Module;
+            this.definition = input.Def;
         }
 
         public Term(uspGetTerm_Result input)

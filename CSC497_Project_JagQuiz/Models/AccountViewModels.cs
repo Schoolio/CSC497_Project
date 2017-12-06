@@ -16,13 +16,15 @@ namespace CSC497_Project_JagQuiz.Models
     public class AccountIndexViewModel
     {
         public List<Course> courses { get; set; }
+        public string inputCourse { get; set; }
         public AccountIndexViewModel(List<string> inputCourses, UserManager userManager)
         {
             this.courses = new List<Course>();
 
             foreach (string item in inputCourses)
             {
-                this.courses.Add(new Course(item, userManager.dbContext.uspGetTermsByUser(userManager.appUser.Email).ToList<uspGetTermsByUser_Result>().FindAll(p => p.CourseDscpt == item)));
+                List<uspGetTermsByUser_Result> debug = userManager.dbContext.uspGetTermsByUser(userManager.appUser.Email).ToList<uspGetTermsByUser_Result>().FindAll(p => p.CourseDscpt == item);
+                this.courses.Add(new Course(item, debug));
             }
         }
     }
@@ -54,6 +56,7 @@ namespace CSC497_Project_JagQuiz.Models
             public List<string> allCourses { get; set; }
             public string coursePassword { get; set; }
             public string selectedCourse { get; set; }
+            public string module { get; set; }
 
         }
     }
